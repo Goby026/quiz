@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+
+<head th:replace="~{layout/layout :: head}">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{layout/layout :: header}"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="~{layout/layout :: sidebar}"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+                <div class="card mt-4 shadow p-3 mb-5 bg-body-tertiary rounded border-0"
+                     style="width: 22rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${titulo}"></h5>
+                        <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+
+                        <form th:action="@{/docentes/formulario}"
+                              th:object="${docente}"
+                              method="post">
+                            <!--==================NOMBRES==================-->
+                            <div class="mb-3">
+                                <label for="txtNombres"
+                                       class="form-label">Nombres</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="txtNombres"
+                                       th:field="*{nombres}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('nombres')}"
+                                       th:errors="*{nombres}"></small>
+                            </div>
+
+                            <!--==================APELLIDOS==================-->
+                            <div class="mb-3">
+                                <label for="txtApellidos"
+                                       class="form-label">Apellidos</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="txtApellidos"
+                                       th:field="*{apellidos}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('apellidos')}"
+                                       th:errors="*{apellidos}"></small>
+                            </div>
+                            <!--==================DNI==================-->
+                            <div class="mb-3">
+                                <label for="txtDni"
+                                       class="form-label">DNI</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="txtDni"
+                                       th:field="*{dni}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('dni')}"
+                                       th:errors="*{dni}"></small>
+                            </div>
+                            <!--==================CORREO==================-->
+                            <div class="mb-3">
+                                <label for="txtCorreo"
+                                       class="form-label">Correo electrónico</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="txtCorreo"
+                                       th:field="*{correo}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('correo')}"
+                                       th:errors="*{correo}"></small>
+                            </div>
+                            <!--==================IMAGEN==================-->
+                            <div class="mb-3">
+                                <label for="txtImagen"
+                                       class="form-label">Imagen</label>
+                                <input type="file"
+                                       class="form-control"
+                                       id="txtImagen"
+                                       th:field="*{imagen}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('imagen')}"
+                                       th:errors="*{imagen}"></small>
+                            </div>
+
+                            <!--==================TELEFONO==================-->
+                            <div class="mb-3">
+                                <label for="txtTelefono"
+                                       class="form-label">Número telefónico</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="txtTelefono"
+                                       th:field="*{telefono}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('telefono')}"
+                                       th:errors="*{telefono}"></small>
+                            </div>
+
+                            <!--==================INSTITUCION==================-->
+                            <div class="mb-3">
+                                <label for="selectInstitucion"
+                                       class="form-label">Institución</label>
+                                <select class="form-select" id="selectInstitucion" th:field="*{institucion.id}">
+                                    <option value="0">Seleccionar</option>
+                                    <option th:each="inst: ${instituciones}" th:value="${inst.id}"
+                                            th:text="${inst.nombre}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <input type="hidden"
+                                   th:field="*{id}"/>
+
+                            <button type="submit"
+                                    class="btn btn-primary">Registrar
+                            </button>
+
+                            <a th:href="@{/docentes}" type="button"
+                               class="btn btn-danger">Cancelar
+                            </a>
+                            <!--                    <a href="#" class="card-link">Another link</a>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+    </div>
+</div>
+</body>
+
+</html>

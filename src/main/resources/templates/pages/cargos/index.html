@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="layout/layout :: head">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="layout/layout :: header"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="layout/layout :: sidebar"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+                <div class="card mt-4 mb-4">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-table me-1"></i>
+                            <h4 th:text="${titulo}"></h4>
+                        </div>
+                        <a class="btn btn-info" th:href="@{/cargos/formulario}">
+                            +
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DESCRIPCION</th>
+                                <th>FECHA CREACION</th>
+                                <th>EDITAR</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>DESCRIPCION</th>
+                                <th>FECHA CREACION</th>
+                                <th>EDITAR</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="cargo: ${cargos}">
+                                <td th:text="${cargo.id}"></td>
+                                <td th:text="${cargo.descripcion}"></td>
+                                <td th:text="${cargo.createdAt}"></td>
+                                <td><a th:href="@{/cargos/formulario/}+ ${cargo.id}"
+                                       class="btn btn-warning btn-sm">Editar</a></td>
+                                <td><a th:href="@{/cargos/eliminar/}+ ${cargo.id}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Eliminar registro?')">Eliminar</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="layout/layout :: footer"></footer>
+    </div>
+</div>
+</body>
+
+</html>

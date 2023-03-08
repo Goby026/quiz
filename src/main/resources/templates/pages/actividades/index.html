@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+
+<head th:replace="~{layout/layout :: head}">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{layout/layout :: header}"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="~{layout/layout :: sidebar}"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="card shadow p-3 mt-3 bg-body-tertiary rounded">
+                            <div class="card-body">
+                                <h5 class="card-title">DATOS DEL MONITOR</h5>
+
+                                <form class="row g-3">
+                                    <div class="col-md-12">
+                                        <label for="txtNombreMonitor"
+                                               class="form-label">Nombres del monitor</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtNombreMonitor" readonly/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="txtTelefono"
+                                               class="form-label">Teléfono</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="txtTelefono" readonly/>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="txtCargo"
+                                               class="form-label">Cargo</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtCargo" readonly/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="txtCorreo"
+                                               class="form-label">Correo electrónico</label>
+                                        <input type="email"
+                                               class="form-control"
+                                               id="txtCorreo" readonly/>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="txtCanal"
+                                               class="form-label">Canal de comunicación para el monitoreo</label>
+                                        <select class="form-select"
+                                                id="txtCanal">
+                                            <option value="0">Seleccionar</option>
+                                            <option th:each="canal: ${canales}"
+                                                    th:value="canal.id"
+                                                    th:text="${canal.descripcion}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="txtNumVisita"
+                                               class="form-label">Número de visita a la IE</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="txtNumVisita"/>
+                                    </div>
+
+                                </form>
+                                <hr>
+                                <h5 class="card-title">DOCENTE MONITOREADO</h5>
+                                <form class="row g-3">
+                                    <div class="col-md-12">
+                                        <label for="txtDocente"
+                                               class="form-label">Nombres Completos</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtDocente"/>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label for="txtDni"
+                                               class="form-label">Dni</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="txtDni"/>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label for="txtPhone"
+                                               class="form-label">Teléfono</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="txtPhone"/>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="txtEmail"
+                                               class="form-label">Correo electrónico</label>
+                                        <input type="email"
+                                               class="form-control"
+                                               id="txtEmail"/>
+                                    </div>
+
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary">
+                                            Registrar
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="card shadow p-3 mt-3 bg-body-tertiary rounded">
+                            <div class="card-body">
+                                <h5 class="card-title">INFORMACIÓN DE LA PROGRAMACIÓN DE LA ACTIVIDAD O SESIÓN</h5>
+
+                                <form class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="txtCiclo"
+                                               class="form-label">Ciclo</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtCiclo">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="txtGradoSeccion"
+                                               class="form-label">Grado y Sección</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtGradoSeccion">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="txtCantEstudiantes"
+                                               class="form-label">Estudiantes</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               placeholder="Cantidad estudiantes AeC"
+                                               id="txtCantEstudiantes">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="txtNumSemana"
+                                               class="form-label">N° semana</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="txtNumSemana">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="txtNumSesion"
+                                               class="form-label">N° sesion / actividad</label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="txtNumSesion">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="checkDirectorioPadres"
+                                               class="form-label">Cuenta con el directorio de los PP.FF. (EBR, EBA menos de edad)</label>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="checkDirectorioPadres" checked="">
+                                            <label class="form-check-label" for="checkDirectorioPadres"> Si </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="txtArea"
+                                               class="form-label">Área</label>
+                                        <select class="form-select"
+                                                id="txtArea">
+                                            <option value="0">Seleccionar</option>
+                                            <option th:each="area: ${areas}"
+                                                    th:value="area.id"
+                                                    th:text="${area.nombreCurso}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label for="checkDirectorioEstudiantes"
+                                               class="form-label">Cuenta con el directorio de los estudiantes</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="checkDirectorioEstudiantes" checked="false">
+                                            <label class="form-check-label" for="checkDirectorioEstudiantes"> Si </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="txtCompetencia"
+                                               class="form-label">Competencia (s)</label>
+                                        <textarea class="form-control" id="txtCompetencia" style="height: 100px"></textarea>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="txtNomSesion"
+                                               class="form-label">Nombre de la sesión o Actividad</label>
+                                        <textarea class="form-control" id="txtNomSesion" style="height: 100px"></textarea>
+                                    </div>
+
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <a th:href="@{/ficha-items}"
+                                           class="btn btn-primary">Iniciar evaluación</a>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+    </div>
+</div>
+</body>
+
+</html>

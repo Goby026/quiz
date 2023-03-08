@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+
+<head th:replace="~{layout/layout :: head}">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{layout/layout :: header}"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="~{layout/layout :: sidebar}"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+                <h3 th:text="${titulo}"></h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                            <tr class="table-dark">
+                                <th scope="col">N°</th>
+                                <th scope="col">ITEMS</th>
+                                <th scope="col">VALORACION</th>
+                                <th scope="col">EVIDENCIAS</th>
+                                <th scope="col">OBSERVACIONES</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <div th:each="categoria: ${categorias}">
+                                <tr class="table-primary">
+                                    <td></td>
+                                    <td th:text="${categoria.descripcion}">A. PLANIFICACION Y COMUNICACION</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr th:each="item: ${items}" th:if="${item.categoriaItem.id == categoria.id}">
+                                    <th scope="row" th:text="${item.id}"></th>
+                                    <td width="40%" th:text="${item.descripcion}"></td>
+                                    <td>
+                                        <select class="form-select"
+                                                aria-label="Default select example">
+                                            <option selected>Valores</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control" /></td>
+                                    <td>
+                                        <div class="form-floating">
+                                            <textarea class="form-control"
+                                                      placeholder="Leave a comment here"
+                                                      id="floatingTextarea"></textarea>
+                                            <label for="floatingTextarea">Comentarios</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </div>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary">Guardar ficha</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+    </div>
+</div>
+</body>
+
+</html>

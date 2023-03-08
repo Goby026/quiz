@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+
+<head th:replace="~{layout/layout :: head}">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{layout/layout :: header}"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="~{layout/layout :: sidebar}"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+                <div class="card mt-4 mb-4">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-table me-1"></i>
+                            <h4 th:text="${titulo}"></h4>
+                        </div>
+                        <!--                        <a class="btn btn-info" th:href="@{/fichas/formulario}">-->
+                        <!--                            <i class="fas fa-plus-square text-light"></i>-->
+                        <!--                        </a>-->
+                        <!-- Button trigger modal -->
+                        <button type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                            <i class="fas fa-plus-square text-light"></i>
+                        </button>
+
+                        <!--================MODAL DE REGISTRO DE ACTIVIDAD================-->
+                        <div class="modal fade"
+                             id="exampleModal"
+                             tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <form>
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5"
+                                                id="exampleModalLabel">FICHA DE MONITOREO VIRTUAL</h1>
+                                            <button type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="mb-3">
+                                                <label for="txtIE"
+                                                       class="form-label">Institución
+                                                    Educativa</label>
+                                                <select class="form-select"
+                                                        aria-label="Default select example"
+                                                        id="txtIE">
+                                                    <option>Seleccionar</option>
+                                                    <option th:each="inst: ${instituciones}"
+                                                            th:value="${inst.id}"
+                                                            th:text="${inst.nombre}">
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <label for="txtDRE"
+                                                           class="form-label">DRE</label>
+                                                    <!--<select class="form-select"-->
+                                                    <!--aria-label="Default select example"-->
+                                                    <!--id="txtDRE">-->
+                                                    <!--<option>Seleccionar</option>-->
+                                                    <!--<option value="1">One</option>-->
+                                                    <!--</select>-->
+                                                    <input type="text"
+                                                           id="txtDRE"
+                                                           class="form-control">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="txtUGEL"
+                                                           class="form-label">UGEL</label>
+<!--                                                    <select class="form-select"-->
+<!--                                                            aria-label="Default select example"-->
+<!--                                                            id="txtUGEL">-->
+<!--                                                        <option>Seleccionar</option>-->
+<!--                                                        <option value="1">One</option>-->
+<!--                                                    </select>-->
+                                                    <input type="text"
+                                                           id="txtUGEL"
+                                                           class="form-control">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="txtNivel"
+                                                           class="form-label">Nivel</label>
+<!--                                                    <select class="form-select"-->
+<!--                                                            aria-label="Default select example"-->
+<!--                                                            id="txtNivel">-->
+<!--                                                        <option>Seleccionar</option>-->
+<!--                                                        <option value="1">One</option>-->
+<!--                                                    </select>-->
+                                                    <input type="text"
+                                                           id="txtNivel"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <!--                                            <button type="submit" class="btn btn-primary">Registrar Ficha</button>-->
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                    class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cerrar
+                                            </button>
+<!--                                            <button type="button"-->
+<!--                                                    class="btn btn-primary">Iniciar Ficha-->
+<!--                                            </button>-->
+                                            <a class="btn btn-primary" th:href="@{/actividad}">Iniciar Ficha
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!--================/MODAL DE REGISTRO DE ACTIVIDAD================-->
+
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DOCENTE EVALUADO</th>
+                                <th>INSTITUCION</th>
+                                <th>CREACION</th>
+                                <th>EDITAR</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>DOCENTE EVALUADO</th>
+                                <th>INSTITUCION</th>
+                                <th>CREACION</th>
+                                <th>EDITAR</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="ficha: ${fichas}">
+                                <td th:text="${ficha.id}"></td>
+                                <td th:text="${ficha.descripcion}"></td>
+                                <td th:text="${ficha.createdAt}"></td>
+                                <td><a th:href="@{/fichas/formulario/}+ ${ficha.id}"
+                                       class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a></td>
+                                <td><a th:href="@{/fichas/eliminar/}+ ${ficha.id}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Eliminar registro?')"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+    </div>
+</div>
+</body>
+
+</html>
