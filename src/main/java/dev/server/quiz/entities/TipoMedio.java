@@ -7,7 +7,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Builder
@@ -19,16 +18,12 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Medio implements Serializable {
+public class TipoMedio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String descripcion;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipomedio_id", nullable = false)
-    private TipoMedio tipoMedio;
 
     private static final long serialVersionUID = 1L;
 

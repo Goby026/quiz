@@ -36,6 +36,7 @@
                         </button>
 
                         <!--================MODAL DE REGISTRO DE ACTIVIDAD================-->
+                        <!-- Modal -->
                         <div class="modal fade"
                              id="exampleModal"
                              tabindex="-1"
@@ -43,88 +44,298 @@
                              aria-hidden="true">
                             <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
-                                    <form>
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5"
-                                                id="exampleModalLabel">FICHA DE MONITOREO VIRTUAL</h1>
-                                            <button type="button"
-                                                    class="btn-close"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
+
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5"
+                                            id="exampleModalLabel">FICHA DE MONITOREO VIRTUAL</h1>
+                                        <button type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3"
+                                              th:action="@{/actividad/formulario}"
+                                              th:object="${actividad}"
+                                              method="POST">
+                                            <div class="col-md-6">
+                                                <b class="mb-2">DATOS DE LA IE</b>
+                                                <div class="mb-3">
+                                                    <label for="txtIE"
+                                                           class="form-label">Institución
+                                                        Educativa</label>
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            id="txtIE"
+                                                            th:field="*{institucion.id}">
+                                                        <option value="0">Seleccionar</option>
+                                                        <option th:each="inst: ${instituciones}"
+                                                                th:value="${inst.id}"
+                                                                th:text="${inst.nombre}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="txtLugar"
+                                                           class="form-label">Lugar</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="txtLugar"
+                                                           th:field="*{lugar}"/>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="txtMonitor"
+                                                           class="form-label">Monitor</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="txtMonitor"
+                                                           th:field="*{usuario}"/>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="row d-flex align-items-baseline">
+                                                        <div class="col-md-6">
+                                                            <label for="txtNumVisita"
+                                                                   class="form-label">Número de visita a la IE</label>
+                                                            <input type="number"
+                                                                   class="form-control"
+                                                                   id="txtNumVisita"
+                                                                   th:field="*{numVisita}"/>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label for="txtCanal"
+                                                                   class="form-label">Canal de comunicación para el
+                                                                monitoreo</label>
+                                                            <select class="form-select"
+                                                                    id="txtCanal"
+                                                                    th:field="*{canal.id}">
+                                                                <option value="0">Seleccionar</option>
+                                                                <option th:each="canal: ${canales}"
+                                                                        th:value="${canal.id}"
+                                                                        th:text="${canal.descripcion}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="txtDocente"
+                                                           class="form-label">Docente Monitoreado</label>
+                                                    <select class="form-select"
+                                                            id="txtDocente"
+                                                            th:field="*{docente.id}">
+                                                        <option value="0">Seleccionar</option>
+                                                        <option th:each="docente: ${docentes}"
+                                                                th:value="${docente.id}"
+                                                                th:text="${docente.nombres}"></option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <b class="mb-2">INFORMACIÓN DE LA PROGRAMACIÓN DE LA ACTIVIDAD O
+                                                    SESIÓN</b>
+                                                <div class="mb-3">
+                                                    <div class="row d-flex align-items-baseline">
+                                                        <div class="col-md-4">
+                                                            <label for="txtCiclo"
+                                                                   class="form-label">Ciclo</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   id="txtCiclo"
+                                                                   th:field="*{ciclo}"/>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="txtGradoSeccion"
+                                                                   class="form-label">Grado y Sección</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   id="txtGradoSeccion"
+                                                                   th:field="*{gradoSeccion}"/>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="txtCantEstudiantes"
+                                                                   class="form-label">Estudiantes</label>
+                                                            <input type="number"
+                                                                   class="form-control"
+                                                                   placeholder="Cantidad estudiantes AeC"
+                                                                   id="txtCantEstudiantes"
+                                                                   th:field="*{cantidadEstudiantes}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="row d-flex align-items-baseline">
+                                                        <div class="col-md-4">
+                                                            <label for="txtNumSemana"
+                                                                   class="form-label">N° semana</label>
+                                                            <input type="number"
+                                                                   class="form-control"
+                                                                   id="txtNumSemana"
+                                                                   th:field="*{numSemana}"/>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="txtNumSesion"
+                                                                   class="form-label">N° sesion / actividad</label>
+                                                            <input type="number"
+                                                                   class="form-control"
+                                                                   id="txtNumSesion"
+                                                                   th:field="*{numActividad}"/>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="checkDirectorioPadres"
+                                                                   class="form-label">Cuenta con el directorio de los
+                                                                PP.FF. (EBR, EBA menos de edad)</label>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                       type="checkbox"
+                                                                       th:value="${directorioPadres}"
+                                                                       id="checkDirectorioPadres"
+                                                                       th:checked="${directorioPadres}"
+                                                                       th:field="*{directorioPadres}"/>
+                                                                <label class="form-check-label"
+                                                                       for="checkDirectorioPadres"> Si </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="row d-flex align-items-baseline">
+                                                        <div class="col-md-8">
+                                                            <label for="txtArea"
+                                                                   class="form-label">Área</label>
+                                                            <select class="form-select"
+                                                                    id="txtArea"
+                                                                    th:field="*{area.id}">
+                                                                <option value="0">Seleccionar</option>
+                                                                <option th:each="area: ${areas}"
+                                                                        th:value="${area.id}"
+                                                                        th:text="${area.nombreCurso}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="checkDirectorioEstudiantes"
+                                                                   class="form-label">Cuenta con el directorio de los
+                                                                estudiantes</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                       type="checkbox"
+                                                                       th:value="${directorioEstudiantes}"
+                                                                       id="checkDirectorioEstudiantes"
+                                                                       th:checked="${directorioEstudiantes}"
+                                                                       th:field="*{directorioEstudiantes}"/>
+                                                                <label class="form-check-label"
+                                                                       for="checkDirectorioEstudiantes"> Si </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="txtCompetencia"
+                                                       class="form-label">Competencia (s)</label>
+                                                <textarea class="form-control"
+                                                          id="txtCompetencia"
+                                                          style="height: 100px"></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="txtNomSesion"
+                                                       class="form-label">Nombre de la sesión o Actividad</label>
+                                                <textarea class="form-control"
+                                                          id="txtNomSesion"
+                                                          style="height: 100px"></textarea>
+                                            </div>
 
                                             <div class="mb-3">
-                                                <label for="txtIE"
-                                                       class="form-label">Institución
-                                                    Educativa</label>
-                                                <select class="form-select"
-                                                        aria-label="Default select example"
-                                                        id="txtIE">
-                                                    <option>Seleccionar</option>
-                                                    <option th:each="inst: ${instituciones}"
-                                                            th:value="${inst.id}"
-                                                            th:text="${inst.nombre}">
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <div class="col">
-                                                    <label for="txtDRE"
-                                                           class="form-label">DRE</label>
-                                                    <!--<select class="form-select"-->
-                                                    <!--aria-label="Default select example"-->
-                                                    <!--id="txtDRE">-->
-                                                    <!--<option>Seleccionar</option>-->
-                                                    <!--<option value="1">One</option>-->
-                                                    <!--</select>-->
-                                                    <input type="text"
-                                                           id="txtDRE"
-                                                           class="form-control">
-                                                </div>
-                                                <div class="col">
-                                                    <label for="txtUGEL"
-                                                           class="form-label">UGEL</label>
-<!--                                                    <select class="form-select"-->
-<!--                                                            aria-label="Default select example"-->
-<!--                                                            id="txtUGEL">-->
-<!--                                                        <option>Seleccionar</option>-->
-<!--                                                        <option value="1">One</option>-->
-<!--                                                    </select>-->
-                                                    <input type="text"
-                                                           id="txtUGEL"
-                                                           class="form-control">
-                                                </div>
-                                                <div class="col">
-                                                    <label for="txtNivel"
-                                                           class="form-label">Nivel</label>
-<!--                                                    <select class="form-select"-->
-<!--                                                            aria-label="Default select example"-->
-<!--                                                            id="txtNivel">-->
-<!--                                                        <option>Seleccionar</option>-->
-<!--                                                        <option value="1">One</option>-->
-<!--                                                    </select>-->
-                                                    <input type="text"
-                                                           id="txtNivel"
-                                                           class="form-control">
+                                                <div class="row d-flex align-items-baseline">
+                                                    <b class="mb-2"> RECURSOS Y/O MEDIOS UTILIZADOS PARA EL
+                                                        DESARROLLO DE LAS ACTIVIDADES DE APRENDIZAJE EN LA ESTRATEGIA
+                                                        APRENDO EN CASA</b>
+                                                    <div class="col-md-8">
+                                                        <label for="txtMedio"
+                                                               class="form-label">Medio</label>
+                                                        <select class="form-select"
+                                                                id="txtMedio">
+                                                            <option value="0">Seleccionar</option>
+                                                            <!--                                                                <option th:each="area: ${areas}"-->
+                                                            <!--                                                                        th:value="area.id"-->
+                                                            <!--                                                                        th:text="${area.nombreCurso}"></option>-->
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtCantidadMedio"
+                                                               class="form-label">Cantidad</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="txtCantidadMedio">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtPercent"
+                                                               class="form-label">%</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="txtPercent">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!--                                            <button type="submit" class="btn btn-primary">Registrar Ficha</button>-->
 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button"
-                                                    class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cerrar
-                                            </button>
-<!--                                            <button type="button"-->
-<!--                                                    class="btn btn-primary">Iniciar Ficha-->
-<!--                                            </button>-->
-                                            <a class="btn btn-primary" th:href="@{/actividad}">Iniciar Ficha
-                                            </a>
-                                        </div>
-                                    </form>
+                                            <div class="mb-3">
+                                                <div class="row d-flex align-items-baseline">
+                                                    <b class="mb-2"> MEDIOS DE COMUNICACION Y/O CANALES DE ACCESO
+                                                        POR EL CUAL PARTICIPAN LOS ESTUDIANTES Y BRINDA LA
+                                                        RETROALIMENTACION</b>
+                                                    <div class="col-md-8">
+                                                        <label for="txtMedioCom"
+                                                               class="form-label">Medio</label>
+                                                        <select class="form-select"
+                                                                id="txtMedioCom">
+                                                            <option value="0">Seleccionar</option>
+                                                            <!--                                                                <option th:each="area: ${areas}"-->
+                                                            <!--                                                                        th:value="area.id"-->
+                                                            <!--                                                                        th:text="${area.nombreCurso}"></option>-->
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtCantidadMedioCom"
+                                                               class="form-label">Cantidad
+                                                        </label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="txtCantidadMedioCom">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtPercentCom"
+                                                               class="form-label">%</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="txtPercentCom">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <a th:href="@{/ficha-items}"
+                                                   class="btn btn-primary">Iniciar evaluación</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--                                    <div class="modal-footer">-->
+                                    <!--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                                    <!--                                        <button type="button" class="btn btn-primary">Save changes</button>-->
+                                    <!--                                    </div>-->
+
                                 </div>
                             </div>
                         </div>

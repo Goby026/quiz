@@ -30,24 +30,29 @@ public class Institucion implements Serializable {
 
     @NotEmpty
     private String nombre;
+
     @NotEmpty
     private String lugar;
-    @NotEmpty
-    private String dre;
-    @NotEmpty
-    private String ugel;
 
-    @NotEmpty
-    private String nivel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dre_id", nullable = false)
+    private Dre dre;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "institucion_nivel"
-//            ,joinColumns = @JoinColumn(name = "institucion_id")
-//            ,inverseJoinColumns = @JoinColumn(name = "nivel_id"))
-//    private Set<Nivel> niveles = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ugel_id", nullable = false)
+    private Ugel ugel;
 
-    @OneToMany(mappedBy = "institucion", fetch = FetchType.LAZY)
-    private Set<Docente> docentes;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "institucion_nivel"
+            ,joinColumns = @JoinColumn(name = "institucion_id")
+            ,inverseJoinColumns = @JoinColumn(name = "nivel_id"))
+    private Set<Nivel> niveles = new HashSet<>();
+
+//    @OneToOne(mappedBy = "institucion", fetch = FetchType.LAZY)
+//    private Actividad actividad;
+
+//    @OneToMany(mappedBy = "institucion", fetch = FetchType.LAZY)
+//    private Set<Docente> docentes;
 
     private static final long serialVersionUID = 1L;
 
