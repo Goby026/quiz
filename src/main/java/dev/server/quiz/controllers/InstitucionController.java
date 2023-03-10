@@ -1,7 +1,9 @@
 package dev.server.quiz.controllers;
 
 import dev.server.quiz.entities.Institucion;
+import dev.server.quiz.services.DreService;
 import dev.server.quiz.services.InstitucionService;
+import dev.server.quiz.services.UgelService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +19,20 @@ import java.util.Map;
 public class InstitucionController {
 
     private final InstitucionService service;
+    private final DreService dreService;
+    private final UgelService ugelService;
 
-    public InstitucionController(InstitucionService service) {
+    public InstitucionController(InstitucionService service, DreService dreService, UgelService ugelService) {
         this.service = service;
+        this.dreService = dreService;
+        this.ugelService = ugelService;
     }
 
     @RequestMapping("/instituciones")
     public String listar(Model model) throws Exception {
 
-        model.addAttribute("instituciones", service.listar());
         model.addAttribute("titulo", "Lista de Instituciones");
+        model.addAttribute("instituciones", service.listar());
 
         return "pages/instituciones/index";
     }
@@ -36,6 +42,8 @@ public class InstitucionController {
         Institucion institucion = new Institucion();
         model.put("institucion", institucion);
         model.put("titulo", "Registrar Institución");
+        model.put("dres", dreService.listar());
+        model.put("ugeles", ugelService.listar());
 //        model.addAttribute("cargos", this.service.listar());
         return "pages/instituciones/formulario";
     }

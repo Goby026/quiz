@@ -30,12 +30,12 @@ public class FichaItemController {
         this.itemService = itemService;
     }
 
-    @RequestMapping("/ficha-items")
+    @RequestMapping("/ficha-items/{id}")
     public String listar(Model model) throws Exception {
 
         model.addAttribute("titulo", "Valoración de items");
         model.addAttribute("categorias", categoriaItemService.listar());
-        model.addAttribute("items", itemService.listar());
+        model.addAttribute("items", service.registrarItems());
 
         return "pages/fichas/fichaRegistro";
     }

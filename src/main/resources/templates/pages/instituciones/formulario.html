@@ -58,40 +58,35 @@
                             <div class="mb-3">
                                 <label for="txtDre"
                                        class="form-label">DRE</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="txtDre"
-                                       th:field="*{dre}"
-                                       th:errorclass="'form-control'"/>
-                                <small class="form-text text-danger"
-                                       th:if="${#fields.hasErrors('dre')}"
-                                       th:errors="*{dre}"></small>
+                                <select class="form-select"
+                                        id="txtDre"
+                                        th:field="*{dre.id}"
+                                        th:errorclass="'form-control'">
+                                    <option value="0">Seleccionar</option>
+                                    <option th:each="dr: ${dres}"
+                                            th:value="${dr.id}"
+                                            th:text="${dr.descripcion}"></option>
+                                </select>
+<!--                                <small class="form-text text-danger"-->
+<!--                                       th:if="${#fields.hasErrors('dre')}"-->
+<!--                                       th:errors="*{dre}"></small>-->
                             </div>
                             <!--==================UGEL==================-->
                             <div class="mb-3">
                                 <label for="txtUgel"
                                        class="form-label">Ugel</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="txtUgel"
-                                       th:field="*{ugel}"
-                                       th:errorclass="'form-control'"/>
-                                <small class="form-text text-danger"
-                                       th:if="${#fields.hasErrors('ugel')}"
-                                       th:errors="*{ugel}"></small>
-                            </div>
-                            <!--==================NIVEL==================-->
-                            <div class="mb-3">
-                                <label for="txtNivel"
-                                       class="form-label">Nivel</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="txtNivel"
-                                       th:field="*{nivel}"
-                                       th:errorclass="'form-control'"/>
-                                <small class="form-text text-danger"
-                                       th:if="${#fields.hasErrors('nivel')}"
-                                       th:errors="*{nivel}"></small>
+                                <select class="form-select"
+                                        id="txtUgel"
+                                        th:field="*{ugel.id}"
+                                        th:errorclass="'form-control'">
+                                    <option value="0">Seleccionar</option>
+                                    <option th:each="u: ${ugeles}"
+                                            th:value="${u.id}"
+                                            th:text="${u.descripcion}"></option>
+                                </select>
+<!--                                <small class="form-text text-danger"-->
+<!--                                       th:if="${#fields.hasErrors('ugel')}"-->
+<!--                                       th:errors="*{ugel}"></small>-->
                             </div>
 
                             <input type="hidden"
