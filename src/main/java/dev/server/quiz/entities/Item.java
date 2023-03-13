@@ -1,5 +1,6 @@
 package dev.server.quiz.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,7 +33,7 @@ public class Item implements Serializable {
     @JoinColumn(name = "categoriaItem_id", nullable = false)
     private CategoriaItem categoriaItem;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item",fetch = FetchType.LAZY)
     private Set<FichaItem> fichaItems;
 
     private static final long serialVersionUID = 1L;

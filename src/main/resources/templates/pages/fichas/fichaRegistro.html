@@ -22,6 +22,9 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
+<!--                        <ul>-->
+<!--                            <li th:each="item: ${items}" th:text="${item.item.descripcion}"></li>-->
+<!--                        </ul>-->
                         <table class="table">
                             <thead>
                             <tr class="table-dark">
@@ -41,9 +44,9 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
-                                <tr th:each="item: ${items}" th:if="${item.categoriaItem.id == categoria.id}">
+                                <tr th:each="item: ${items}" th:if="${item.item.categoriaItem.id == categoria.id}">
                                     <th scope="row" th:text="${item.id}"></th>
-                                    <td width="40%" th:text="${item.descripcion}"></td>
+                                    <td width="40%" th:text="${item.item.descripcion}"></td>
                                     <td>
                                         <select class="form-select"
                                                 aria-label="Default select example">

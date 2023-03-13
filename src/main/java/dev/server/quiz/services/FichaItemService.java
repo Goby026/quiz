@@ -9,9 +9,7 @@ import dev.server.quiz.repositories.ItemRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class FichaItemService implements DAOService<FichaItem>{
@@ -31,13 +29,9 @@ public class FichaItemService implements DAOService<FichaItem>{
         return repo.save(p);
     }
 
-    public List<FichaItem> registrarItems() throws Exception {
+    public List<FichaItem> registrarItems(Ficha ficha) throws Exception {
         List<Item> items = itemRepo.findAll();
         List<FichaItem> fichaItems = new ArrayList<FichaItem>();
-
-        Ficha ficha = new Ficha();
-        ficha.setUsuario("User-test");
-        ficha.setFecha(new Date());
 
         for (Item item: items) {
             FichaItem fichaItem = new FichaItem();
@@ -66,5 +60,9 @@ public class FichaItemService implements DAOService<FichaItem>{
     @Override
     public List<FichaItem> listar() throws Exception {
         return repo.findAll();
+    }
+
+    public List<FichaItem> listar(Long fichaId) throws Exception {
+        return repo.findByFichaId(fichaId);
     }
 }

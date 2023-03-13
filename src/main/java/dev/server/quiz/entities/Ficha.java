@@ -1,5 +1,6 @@
 package dev.server.quiz.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,7 +32,10 @@ public class Ficha implements Serializable {
 
     private Date fecha;
 
-//    private Actividad actividad;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "actividad_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Actividad actividad;
 //    private Institucion institucion;
 
     @OneToMany(mappedBy = "ficha", fetch = FetchType.LAZY)

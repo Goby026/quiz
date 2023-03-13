@@ -8,6 +8,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 
 @Builder
@@ -39,12 +41,16 @@ public class Actividad implements Serializable {
     private Area area;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
     private String numVisita;
-    private String hora_inicio;
-    private String hora_fin;
+
+    @Temporal(TemporalType.TIME)
+    private LocalTime hora_inicio;
+
+    @Temporal(TemporalType.TIME)
+    private LocalTime hora_fin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "canal_id", nullable = false)
@@ -69,6 +75,7 @@ public class Actividad implements Serializable {
     private Medio medio;
 
     private int cantidadMedio;
+    private double porcentajeMedio;
 
     private static final long serialVersionUID = 1L;
 

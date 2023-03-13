@@ -18,64 +18,314 @@
         <main>
             <div class="container-fluid px-4">
                 <!-- TODO CONTENIDO AQUI -->
-                <div class="card mt-4 shadow p-3 mb-5 bg-body-tertiary rounded border-0"
-                     style="width: 22rem;">
+                <div class="card mt-4 shadow p-3 mb-5 bg-body-tertiary rounded border-0">
                     <div class="card-body">
-                        <h5 class="card-title"
-                            th:text="${titulo}"></h5>
+                        <h4 class="card-title mb-3"
+                            th:text="${titulo}"></h4>
                         <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
 
-                        <form th:action="@{/items/formulario}"
-                              th:object="${item}"
-                              method="post">
-                            <!--==================DESCRIPCION==================-->
-                            <div class="mb-3">
-                                <label for="txtDescripcion"
-                                       class="form-label">Descripción del item</label>
-                                <!--                                <input type="text"-->
-                                <!--                                       class="form-control"-->
-                                <!--                                       id="txtDescripcion"-->
-                                <!--                                       th:field="*{descripcion}"-->
-                                <!--                                       th:errorclass="'form-control'"/>-->
+                        <form class="row g-3"
+                              th:action="@{/actividad/formulario}"
+                              th:object="${actividad}"
+                              method="POST">
+                            <div class="col-md-6">
+                                <b class="mb-2">DATOS DE LA IE</b>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="mb-3">
+                                            <label for="txtIE"
+                                                   class="form-label">Institución
+                                                Educativa</label>
+                                            <select class="form-select"
+                                                    aria-label="Default select example"
+                                                    id="txtIE"
+                                                    th:field="*{institucion.id}">
+                                                <option value="0">Seleccionar</option>
+                                                <option th:each="inst: ${instituciones}"
+                                                        th:value="${inst.id}"
+                                                        th:text="${inst.nombre}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="txtNivel"
+                                               class="form-label">Nivel</label>
+                                        <select class="form-select"
+                                                id="txtNivel"
+                                                th:field="*{nivel.id}">
+                                            <option value="0">Seleccionar</option>
+                                            <option th:each="niv: ${niveles}"
+                                                    th:value="${niv.id}"
+                                                    th:text="${niv.descripcion}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="txtLugar"
+                                           class="form-label">Lugar</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="txtLugar"
+                                           th:field="*{lugar}"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="txtMonitor"
+                                           class="form-label">Monitor</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="txtMonitor"
+                                           th:field="*{usuario}"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row d-flex align-items-baseline">
+                                        <div class="col-md-6">
+                                            <label for="txtNumVisita"
+                                                   class="form-label">Número de visita a la IE</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="txtNumVisita"
+                                                   th:field="*{numVisita}"/>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="txtCanal"
+                                                   class="form-label">Canal de comunicación para el
+                                                monitoreo</label>
+                                            <select class="form-select"
+                                                    id="txtCanal"
+                                                    th:field="*{canal.id}">
+                                                <option value="0">Seleccionar</option>
+                                                <option th:each="canal: ${canales}"
+                                                        th:value="${canal.id}"
+                                                        th:text="${canal.descripcion}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="txtDocente"
+                                           class="form-label">Docente Monitoreado</label>
+                                    <select class="form-select"
+                                            id="txtDocente"
+                                            th:field="*{docente.id}">
+                                        <option value="0">Seleccionar</option>
+                                        <option th:each="docente: ${docentes}"
+                                                th:value="${docente.id}"
+                                                th:text="${docente.nombres}"></option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <b class="mb-2">INFORMACIÓN DE LA PROGRAMACIÓN DE LA ACTIVIDAD O
+                                    SESIÓN</b>
+                                <div class="mb-3">
+                                    <div class="row d-flex align-items-baseline">
+                                        <div class="col-md-4">
+                                            <label for="txtCiclo"
+                                                   class="form-label">Ciclo</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="txtCiclo"
+                                                   th:field="*{ciclo}"/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="txtGradoSeccion"
+                                                   class="form-label">Grado y Sección</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="txtGradoSeccion"
+                                                   th:field="*{gradoSeccion}"/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="txtCantEstudiantes"
+                                                   class="form-label">Estudiantes</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   placeholder="Cantidad estudiantes AeC"
+                                                   id="txtCantEstudiantes"
+                                                   th:field="*{cantidadEstudiantes}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row d-flex align-items-baseline">
+                                        <div class="col-md-4">
+                                            <label for="txtNumSemana"
+                                                   class="form-label">N° semana</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="txtNumSemana"
+                                                   th:field="*{numSemana}"/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="txtNumSesion"
+                                                   class="form-label">N° sesion / actividad</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="txtNumSesion"
+                                                   th:field="*{numActividad}"/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="checkDirectorioPadres"
+                                                   class="form-label">Cuenta con el directorio de los
+                                                PP.FF. (EBR, EBA menos de edad)</label>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       th:value="${directorioPadres}"
+                                                       id="checkDirectorioPadres"
+                                                       th:checked="${directorioPadres}"
+                                                       th:field="*{directorioPadres}"/>
+                                                <label class="form-check-label"
+                                                       for="checkDirectorioPadres"> Si </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row d-flex align-items-baseline">
+                                        <div class="col-md-8">
+                                            <label for="txtArea"
+                                                   class="form-label">Área</label>
+                                            <select class="form-select"
+                                                    id="txtArea"
+                                                    th:field="*{area.id}">
+                                                <option value="0">Seleccionar</option>
+                                                <option th:each="area: ${areas}"
+                                                        th:value="${area.id}"
+                                                        th:text="${area.nombreCurso}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="checkDirectorioEstudiantes"
+                                                   class="form-label">Cuenta con el directorio de los
+                                                estudiantes</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       th:value="${directorioEstudiantes}"
+                                                       id="checkDirectorioEstudiantes"
+                                                       th:checked="${directorioEstudiantes}"
+                                                       th:field="*{directorioEstudiantes}"/>
+                                                <label class="form-check-label"
+                                                       for="checkDirectorioEstudiantes"> Si </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="txtCompetencia"
+                                       class="form-label">Competencia (s)</label>
                                 <textarea class="form-control"
-                                          placeholder="Leave a comment here"
-                                          id="txtDescripcion"
-                                          th:field="*{descripcion}"
-                                          th:errorclass="'form-control'">
-
-                                </textarea>
-                                <small class="form-text text-danger"
-                                       th:if="${#fields.hasErrors('descripcion')}"
-                                       th:errors="*{descripcion}"></small>
+                                          id="txtCompetencia"
+                                          style="height: 100px"
+                                          th:field="*{competencia}"></textarea>
                             </div>
-                            <!--==================CATEGORIA==================-->
+                            <div class="col-12">
+                                <label for="txtNomSesion"
+                                       class="form-label">Nombre de la sesión o Actividad</label>
+                                <textarea class="form-control"
+                                          id="txtNomSesion"
+                                          style="height: 100px"
+                                          th:field="*{nombreActividad}"></textarea>
+                            </div>
+
                             <div class="mb-3">
-                                <label for="selectCategoria"
-                                       class="form-label">Institución</label>
-                                <select class="form-select"
-                                        id="selectCategoria"
-                                        th:field="*{categoriaItem.id}">
-                                    <option value="0">Seleccionar</option>
-                                    <option th:each="categoria: ${categorias}"
-                                            th:value="${categoria.id}"
-                                            th:text="${categoria.descripcion}">
-                                    </option>
-                                </select>
+                                <div class="row d-flex align-items-baseline">
+                                    <b class="mb-2"> RECURSOS Y/O MEDIOS UTILIZADOS PARA EL
+                                        DESARROLLO DE LAS ACTIVIDADES DE APRENDIZAJE EN LA ESTRATEGIA
+                                        APRENDO EN CASA</b>
+                                    <div class="col-md-8">
+                                        <label for="txtMedioRecurso"
+                                               class="form-label">Medio</label>
+                                        <select class="form-select"
+                                                id="txtMedioRecurso"
+                                                th:field="*{medio.id}">
+                                            <option value="0">Seleccionar</option>
+                                            <option th:each="m: ${medios}"
+                                                    th:value="${m.id}"
+                                                    th:text="${m.descripcion}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="txtCantidadMedio"
+                                               class="form-label">Cantidad</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtCantidadMedio"
+                                               th:field="*{cantidadMedio}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="txtPercent"
+                                               class="form-label">%</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="txtPercent"
+                                               th:field="*{porcentajeMedio}">
+                                    </div>
+                                </div>
                             </div>
 
-                            <input type="hidden"
-                                   th:field="*{id}"/>
+<!--                            <div class="mb-3">-->
+<!--                                <div class="row d-flex align-items-baseline">-->
+<!--                                    <b class="mb-2"> MEDIOS DE COMUNICACION Y/O CANALES DE ACCESO-->
+<!--                                        POR EL CUAL PARTICIPAN LOS ESTUDIANTES Y BRINDA LA-->
+<!--                                        RETROALIMENTACION</b>-->
+<!--                                    <div class="col-md-8">-->
+<!--                                        <label for="txtMedioCom"-->
+<!--                                               class="form-label">Medio</label>-->
+<!--                                        <select class="form-select"-->
+<!--                                                id="txtMedioCom"-->
+<!--                                                th:field="*{medio.id}">-->
+<!--                                            <option value="0">Seleccionar</option>-->
+<!--                                            <option th:each="m: ${medios}"-->
+<!--                                                    th:value="m.id"-->
+<!--                                                    th:text="${m.descripcion}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-2">-->
+<!--                                        <label for="txtCantidadMedioCom"-->
+<!--                                               class="form-label">Cantidad-->
+<!--                                        </label>-->
+<!--                                        <input type="text"-->
+<!--                                               class="form-control"-->
+<!--                                               id="txtCantidadMedioCom">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-2">-->
+<!--                                        <label for="txtPercentCom"-->
+<!--                                               class="form-label">%</label>-->
+<!--                                        <input type="text"-->
+<!--                                               class="form-control"-->
+<!--                                               id="txtPercentCom">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <button type="submit"
-                                    class="btn btn-primary">Registrar
-                            </button>
-
-                            <a th:href="@{/items}"
-                               type="button"
-                               class="btn btn-danger">Cancelar
-                            </a>
-                            <!--                    <a href="#" class="card-link">Another link</a>-->
+                            <hr>
+                            <div class="col-12 d-flex justify-content-end">
+                                <!--                                                <a th:href="@{/ficha-items}"-->
+                                <!--                                                   class="btn btn-primary">Iniciar evaluación</a>-->
+                                <button type="submit" class="btn btn-primary">Iniciar evaluación</button>
+                            </div>
                         </form>
+
+
                     </div>
                 </div>
             </div>

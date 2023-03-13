@@ -24,17 +24,16 @@
                             <i class="fas fa-table me-1"></i>
                             <h4 th:text="${titulo}"></h4>
                         </div>
-                        <a class="btn btn-primary" th:href="@{/actividad/formulario}">
+                        <a class="btn btn-info" th:href="@{/medios/formulario}">
                             <i class="fas fa-plus-square text-light"></i>
                         </a>
-
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>DOCENTE EVALUADO</th>
+                                <th>MEDIO</th>
                                 <th>CREACION</th>
                                 <th>EDITAR</th>
                                 <th>ELIMINAR</th>
@@ -43,23 +42,22 @@
                             <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>DOCENTE EVALUADO</th>
+                                <th>MEDIO</th>
                                 <th>CREACION</th>
                                 <th>EDITAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="ficha: ${fichas}">
-                                <td th:text="${ficha.id}"></td>
-                                <td th:text="${ficha.usuario}"></td>
-                                <td th:text="${ficha.createdAt}"></td>
-                                <td><a th:href="@{/fichas/formulario/}+ ${ficha.id}"
+                            <tr th:each="medio: ${medios}">
+                                <td th:text="${medio.id}"></td>
+                                <td th:text="${medio.descripcion}"></td>
+                                <td th:text="${medio.createdAt}"></td>
+                                <td><a th:href="@{/medios/formulario/}+ ${medio.id}"
                                        class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a></td>
-                                <td><a th:href="@{/fichas/eliminar/}+ ${ficha.id}"
+                                <td><a th:href="@{/medios/eliminar/}+ ${medio.id}"
                                        class="btn btn-danger btn-sm"
-                                       onclick="return confirm('¿Eliminar registro?')"><i class="fas fa-trash"></i></a>
-                                </td>
+                                       onclick="return confirm('¿Eliminar registro?')"><i class="fas fa-trash"></i></a></td>
                             </tr>
                             </tbody>
                         </table>

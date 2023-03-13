@@ -1,11 +1,9 @@
 package dev.server.quiz.repositories;
 
-import dev.server.quiz.entities.Item;
+import dev.server.quiz.entities.Nivel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ItemRepo extends JpaRepository<Item, Long> {
+public interface NivelRepo extends JpaRepository<Nivel, Long> {
 }

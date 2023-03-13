@@ -34,7 +34,7 @@ public class FichaItem implements Serializable {
     @JoinColumn(name = "ficha_id", nullable = false)
     private Ficha ficha;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 

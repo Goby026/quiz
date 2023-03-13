@@ -14,21 +14,9 @@ public class FichaController {
     private final static Logger logger = LoggerFactory.getLogger(FichaController.class);
 
     private final FichaService service;
-    private final InstitucionService institucionService;
-    private final CategoriaItemService categoriaItemService;
-    private final ItemService itemService;
-    private final CanalService canalService;
-    private final DocenteService docenteService;
-    private final AreaService areaService;
 
-    public FichaController(FichaService service, InstitucionService institucionService, CategoriaItemService categoriaItemService, ItemService itemService, CanalService canalService, DocenteService docenteService, AreaService areaService) {
+    public FichaController(FichaService service) {
         this.service = service;
-        this.institucionService = institucionService;
-        this.categoriaItemService = categoriaItemService;
-        this.itemService = itemService;
-        this.canalService = canalService;
-        this.docenteService = docenteService;
-        this.areaService = areaService;
     }
 
     @RequestMapping("/fichas")
@@ -37,12 +25,7 @@ public class FichaController {
         Actividad actividad = new Actividad();
 
         model.addAttribute("titulo", "Evaluaciones realizadas");
-        model.addAttribute("actividad", actividad);
         model.addAttribute("fichas", service.listar());
-        model.addAttribute("instituciones", institucionService.listar());
-        model.addAttribute("canales", canalService.listar());
-        model.addAttribute("docentes", docenteService.listar());
-        model.addAttribute("areas", areaService.listar());
 
         return "pages/fichas/index";
     }
