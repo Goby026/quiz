@@ -29,6 +29,10 @@ public class FichaItemService implements DAOService<FichaItem>{
         return repo.save(p);
     }
 
+    public List<FichaItem> registrarTodos(List<FichaItem> fichaItems) throws Exception {
+        return repo.saveAll(fichaItems);
+    }
+
     public List<FichaItem> registrarItems(Ficha ficha) throws Exception {
         List<Item> items = itemRepo.findAll();
         List<FichaItem> fichaItems = new ArrayList<FichaItem>();

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
 
 <head th:replace="~{layout/layout :: head}">
 </head>
@@ -19,11 +20,12 @@
                 <!-- TODO CONTENIDO AQUI -->
                 <h1 th:text="${titulo}"></h1>
 
-                <div th:object="${categoria}"
+                <div th:object="${indicador}"
                      th:remove="tag">
                     <ul th:if="${#fields.hasErrors('*')}"
                         class="list-group">
-                        <li class="list-group-item alert alert-danger" th:each="err: ${#fields.errors('*')}"
+                        <li class="list-group-item alert alert-danger"
+                            th:each="err: ${#fields.errors('*')}"
                             th:text="${err}"></li>
                     </ul>
                 </div>
@@ -34,21 +36,38 @@
                         <!--                    <h5 class="card-title">Datos</h5>-->
                         <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
 
-                        <form th:action="@{/categorias/formulario}"
-                              th:object="${categoria}"
+                        <form th:action="@{/indicadores/formulario}"
+                              th:object="${indicador}"
                               method="post">
-                            <!--==================DESCRIPCION CATEGORIA==================-->
+                            <!--==================RESULTADO==================-->
                             <div class="mb-3">
-                                <label for="txtCategoria"
-                                       class="form-label">Categoria</label>
-                                <input type="text"
+                                <label for="txtResultado"
+                                       class="form-label">Resultado</label>
+                                <input type="number"
                                        class="form-control"
-                                       id="txtCategoria"
-                                       th:field="*{descripcion}"
+                                       id="txtResultado"
+                                       th:field="*{resultado}"
                                        th:errorclass="'form-control'"/>
                                 <small class="form-text text-danger"
-                                       th:if="${#fields.hasErrors('descripcion')}"
-                                       th:errors="*{descripcion}"></small>
+                                       th:if="${#fields.hasErrors('resultado')}"
+                                       th:errors="*{resultado}"></small>
+                            </div>
+
+                            <!--==================RECOMENDACION==================-->
+                            <div class="mb-3">
+                                <label for="txtRecomendacion"
+                                       class="form-label">Recomendación</label>
+
+                                <textarea class="form-control"
+                                          id="txtRecomendacion"
+                                          th:field="*{recomendacion}"
+                                          th:errorclass="'form-control'">
+
+                                </textarea>
+
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('recomendacion')}"
+                                       th:errors="*{recomendacion}"></small>
                             </div>
 
                             <input type="hidden"
@@ -58,7 +77,8 @@
                                     class="btn btn-primary">Registrar
                             </button>
 
-                            <a th:href="@{/categorias}" type="button"
+                            <a th:href="@{/indicadores}"
+                               type="button"
                                class="btn btn-danger">Cancelar
                             </a>
                             <!--                    <a href="#" class="card-link">Another link</a>-->

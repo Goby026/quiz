@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"
-      lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head th:replace="~{layout/layout :: head}">
 </head>
@@ -24,18 +23,17 @@
                             <i class="fas fa-table me-1"></i>
                             <h4 th:text="${titulo}"></h4>
                         </div>
-                        <a class="btn btn-primary" th:href="@{/actividad/formulario}">
+                        <a class="btn btn-info" th:href="@{/indicadores/formulario}">
                             <i class="fas fa-plus-square text-light"></i>
                         </a>
-
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>DOCENTE EVALUADO</th>
-                                <th>CREACION</th>
+                                <th>RESULTADO</th>
+                                <th>FECHA CREACION</th>
                                 <th>EDITAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
@@ -43,23 +41,22 @@
                             <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>DOCENTE EVALUADO</th>
-                                <th>CREACION</th>
+                                <th>RESULTADO</th>
+                                <th>FECHA CREACION</th>
                                 <th>EDITAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="ficha: ${fichas}">
-                                <td th:text="${ficha.id}"></td>
-                                <td th:text="${ficha.usuario}"></td>
-                                <td th:text="${ficha.createdAt}"></td>
-                                <td><a th:href="@{/ficha-items/}+ ${ficha.id}"
-                                       class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a></td>
-                                <td><a th:href="@{/fichas/eliminar/}+ ${ficha.id}"
+                            <tr th:each="indicador: ${indicadores}">
+                                <td th:text="${indicador.id}"></td>
+                                <td th:text="${indicador.resultado}"></td>
+                                <td th:text="${indicador.createdAt}"></td>
+                                <td><a th:href="@{/indicadores/formulario/}+ ${indicador.id}"
+                                       class="btn btn-warning btn-sm">Editar</a></td>
+                                <td><a th:href="@{/indicadores/eliminar/}+ ${indicador.id}"
                                        class="btn btn-danger btn-sm"
-                                       onclick="return confirm('¿Eliminar registro?')"><i class="fas fa-trash"></i></a>
-                                </td>
+                                       onclick="return confirm('¿Eliminar registro?')">Eliminar</a></td>
                             </tr>
                             </tbody>
                         </table>

@@ -22,54 +22,62 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
-<!--                        <ul>-->
-<!--                            <li th:each="item: ${items}" th:text="${item.item.descripcion}"></li>-->
-<!--                        </ul>-->
-                        <table class="table">
-                            <thead>
-                            <tr class="table-dark">
-                                <th scope="col">N°</th>
-                                <th scope="col">ITEMS</th>
-                                <th scope="col">VALORACION</th>
-                                <th scope="col">EVIDENCIAS</th>
-                                <th scope="col">OBSERVACIONES</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <div th:each="categoria: ${categorias}">
-                                <tr class="table-primary">
-                                    <td></td>
-                                    <td th:text="${categoria.descripcion}">A. PLANIFICACION Y COMUNICACION</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr th:each="item: ${items}" th:if="${item.item.categoriaItem.id == categoria.id}">
-                                    <th scope="row" th:text="${item.id}"></th>
-                                    <td width="40%" th:text="${item.item.descripcion}"></td>
-                                    <td>
-                                        <select class="form-select"
-                                                aria-label="Default select example">
-                                            <option selected>Valores</option>
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                        </select>
-                                    </td>
-                                    <td><input type="text" class="form-control" /></td>
-                                    <td>
-                                        <div class="form-floating">
-                                            <textarea class="form-control"
-                                                      placeholder="Leave a comment here"
-                                                      id="floatingTextarea"></textarea>
-                                            <label for="floatingTextarea">Comentarios</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </div>
-                            </tbody>
-                        </table>
-                        <button class="btn btn-primary">Guardar ficha</button>
+                        <form action="#"
+                              th:action="@{/ficha-items/registro}"
+                              th:object="${form}"
+                              method="post">
+                            <fieldset>
+                                <input type="submit"
+                                       id="submitButton"
+                                       th:value="Guardar">
+                                <input type="reset"
+                                       id="resetButton"
+                                       name="reset"
+                                       th:value="Reset"/>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ITEMS</th>
+                                        <th scope="col">VALORACION</th>
+                                        <th scope="col">EVIDENCIAS</th>
+                                        <th scope="col">OBSERVACIONES</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ficha, itemStat : *{fichaItems}">
+                                        <input type="hidden"
+                                               th:field="*{fichaItems[__${itemStat.index}__].id}">
+                                        <input type="hidden"
+                                               th:field="*{fichaItems[__${itemStat.index}__].ficha.id}">
+                                        <input type="hidden"
+                                               th:field="*{fichaItems[__${itemStat.index}__].item.id}">
+                                        <td width="50%" th:text="${ficha.item.descripcion}"></td>
+                                        <td>
+                                            <input type="number"
+                                                   min="0"
+                                                   max="2"
+                                                   class="form-control"
+                                                   th:field="*{fichaItems[__${itemStat.index}__].valoracion}"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button"
+                                                    class="btn btn-info btn-sm text-light"><i
+                                                    class="fas fa-plus"></i></button>
+                                        </td>
+                                        <td width="30%">
+                                            <div class="form-floating">
+                                            <textarea class="form-control" rows="4"
+                                                      placeholder="Ingresar observación"
+                                                      id="floatingTextarea"
+                                                      th:field="*{fichaItems[__${itemStat.index}__].descripcion}"></textarea>
+                                                <label for="floatingTextarea">Comentarios</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>

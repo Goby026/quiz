@@ -67,6 +67,8 @@ public class Actividad implements Serializable {
     private String numActividad;
     private boolean directorioPadres;
     private boolean directorioEstudiantes;
+
+    @Column(name = "competencia", columnDefinition = "TEXT")
     private String competencia;
     private String nombreActividad;
 

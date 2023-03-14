@@ -2,6 +2,7 @@ package dev.server.quiz.controllers;
 
 import dev.server.quiz.entities.FichaItem;
 import dev.server.quiz.entities.Item;
+import dev.server.quiz.models.FichaItemCreationDto;
 import dev.server.quiz.services.CategoriaItemService;
 import dev.server.quiz.services.FichaItemService;
 import dev.server.quiz.services.FichaService;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,40 +36,42 @@ public class FichaItemController {
         this.fichaService = fichaService;
     }
 
+//  *****METODO PARA MOSTRAR FORMULARIO CON LA LISTA DE FICHA-ITEMS REGISTRADOS*****
     @RequestMapping("/ficha-items/{id}")
     public String listar(@PathVariable(value = "id") Long id, Model model ) throws Exception {
 
-//        logger.info("INICIANDO DE DEPURACION");
         List<FichaItem> items = service.listar(id);
-//        logger.info("ID------------------->" + id);
-//        logger.info("ITEMS------------------->" + items);
 
         model.addAttribute("titulo", "Valoración de items");
-        model.addAttribute("categorias", categoriaItemService.listar());
+        model.addAttribute("form", new FichaItemCreationDto(items));
+//        model.addAttribute("categorias", categoriaItemService.listar());
 //        cargar los items de una determinada Ficha
-        model.addAttribute("items", items);
+        model.addAttribute("ficha_id", id);
 
         return "pages/fichas/fichaRegistro";
     }
 
     @RequestMapping(value = "/ficha-items/registro", method = RequestMethod.POST)
-    public String guardar(BindingResult result, Model model, RedirectAttributes flash) throws Exception {
+    public String guardar(@ModelAttribute FichaItemCreationDto form, Model model, RedirectAttributes flash) throws Exception {
 
-//        Ficha ficha = ficha
+
+        service.registrarTodos(form.getFichaItems());
+//        FichaItem fichaItem = new FichaItem();
 //
 //        List<Item> items = itemService.listar();
 
         // 👀 Binding result, siempre va junto al objeto que se envia, en este caso institucion
-        if (result.hasErrors()){
-            model.addAttribute("titulo", "Registrar Institución");
-            return "pages/instituciones/formulario";
-        }
+//        if (result.hasErrors()){
+//            model.addAttribute("titulo", "Registrar Institución");
+//            return "pages/instituciones/formulario";
+//        }
 
 //        String mensaje = ( institucion.getId() != null ) ? "Institución modificada correctamente." : "Institución " +
 //                "registrada exitosamente.";
 //
 //        service.registrar(institucion);
 //        flash.addFlashAttribute("success", mensaje );
-        return "redirect:/ficha-items";
+        model.addAttribute("fichas", service.listar());
+        return "redirect:/fichas";
     }
 }
