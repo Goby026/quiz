@@ -1,10 +1,8 @@
 package dev.server.quiz.services;
 
-import dev.server.quiz.entities.Ficha;
-import dev.server.quiz.entities.FichaItem;
-import dev.server.quiz.entities.Item;
+import dev.server.quiz.entities.*;
+import dev.server.quiz.repositories.ConsolidadoRepo;
 import dev.server.quiz.repositories.FichaItemRepo;
-import dev.server.quiz.repositories.FichaRepo;
 import dev.server.quiz.repositories.ItemRepo;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +14,14 @@ public class FichaItemService implements DAOService<FichaItem>{
 
     private final FichaItemRepo repo;
     private final ItemRepo itemRepo;
-    private final FichaRepo fichaRepo;
+    private final CategoriaItemService categoriaItemService;
+    private final ConsolidadoRepo consolidadoRepo;
 
-    public FichaItemService(FichaItemRepo repo, ItemRepo itemRepo, FichaRepo fichaRepo) {
+    public FichaItemService(FichaItemRepo repo, ItemRepo itemRepo, CategoriaItemService categoriaItemService, ConsolidadoRepo consolidadoRepo) {
         this.repo = repo;
         this.itemRepo = itemRepo;
-        this.fichaRepo = fichaRepo;
+        this.categoriaItemService = categoriaItemService;
+        this.consolidadoRepo = consolidadoRepo;
     }
 
     @Override
@@ -34,10 +34,10 @@ public class FichaItemService implements DAOService<FichaItem>{
     }
 
     public List<FichaItem> registrarItems(Ficha ficha) throws Exception {
-        List<Item> items = itemRepo.findAll();
+//        List<Item> items = itemRepo.findAll();
         List<FichaItem> fichaItems = new ArrayList<FichaItem>();
 
-        for (Item item: items) {
+        for (Item item: itemRepo.findAll()) {
             FichaItem fichaItem = new FichaItem();
             fichaItem.setDescripcion("");
             fichaItem.setValoracion(0);
@@ -46,6 +46,33 @@ public class FichaItemService implements DAOService<FichaItem>{
             fichaItem.setEvidencias(null);
             repo.save(fichaItem);
             fichaItems.add(fichaItem);
+        }
+
+        //registrar consolidado por cada categoriaItem
+//        List<CategoriaItem> categorias = categoriaItemService.listar();
+
+        for (CategoriaItem cat : categoriaItemService.listar()) {
+            int cantItems = 0;
+            Consolidado consolidado = new Consolidado();
+
+            for (FichaItem fi: fichaItems ) {
+                if (fi.getItem().getCategoriaItem() == cat){
+                    cantItems += 1;
+                }
+            }
+
+            consolidado.setCantidadItem(cantItems);
+            consolidado.setNoCat(0);
+            consolidado.setProcesoCat(0);
+            consolidado.setSiCat(0);
+            consolidado.setTotal(0);
+            consolidado.setNivelAvance(0.0);
+
+            consolidado.setCategoriaItem(cat);
+            consolidado.setFicha(ficha);
+
+            consolidadoRepo.save(consolidado);
+
         }
 
         return fichaItems;

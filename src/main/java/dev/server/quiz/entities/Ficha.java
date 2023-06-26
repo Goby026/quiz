@@ -44,6 +44,9 @@ public class Ficha implements Serializable {
     @OneToMany(mappedBy = "ficha", fetch = FetchType.LAZY)
     private Set<FichaItem> fichaItems;
 
+    @OneToMany(mappedBy = "ficha", fetch = FetchType.LAZY)
+    private Set<Consolidado> consolidados;
+
     private static final long serialVersionUID = 1L;
 
     @CreationTimestamp()

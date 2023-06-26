@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/layout :: head}">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{layout/layout :: header}"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="~{layout/layout :: sidebar}"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+
+                <h1 th:text="${titulo}"></h1>
+
+                <div th:object="${cargo}"
+                     th:remove="tag">
+                    <ul th:if="${#fields.hasErrors('*')}"
+                        class="list-group">
+                        <li class="list-group-item alert alert-danger" th:each="err: ${#fields.errors('*')}"
+                            th:text="${err}"></li>
+                    </ul>
+                </div>
+
+                <div class="card mt-4 shadow p-3 mb-5 bg-body-tertiary rounded border-0"
+                     style="width: 22rem;">
+                    <div class="card-body">
+                        <!--                    <h5 class="card-title">Datos</h5>-->
+                        <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+
+                        <form th:action="@{/usuarios/formulario}"
+                              th:object="${usuario}"
+                              method="post">
+                            <div class="mb-3">
+                                <label for="txtCargo"
+                                       class="form-label">Usuario</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="txtCargo"
+                                       th:field="*{username}"
+                                       th:errorclass="'form-control'"/>
+                                <small class="form-text text-danger"
+                                       th:if="${#fields.hasErrors('descripcion')}"
+                                       th:errors="*{descripcion}"></small>
+                            </div>
+
+                            <input type="hidden"
+                                   th:field="*{id}"/>
+
+                            <button type="submit"
+                                    class="btn btn-primary">Registrar
+                            </button>
+
+                            <a th:href="@{/cargos}" type="button"
+                               class="btn btn-danger">Cancelar
+                            </a>
+                            <!--                    <a href="#" class="card-link">Another link</a>-->
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+    </div>
+</div>
+</body>
+
+</html>

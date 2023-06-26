@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Map;
@@ -57,10 +58,12 @@ public class ActividadController {
     }
 
     @RequestMapping("/actividad/formulario")
-    public String formulario(Map<String, Object> model) throws Exception {
+    public String formulario(Map<String, Object> model, Principal principal) throws Exception {
 
         Actividad actividad = new Actividad();
 
+        model.put("titulo", "Inicio de Actividad");
+        model.put("harduser", usuarioService.obtener(1L));
         model.put("actividad", actividad);
         model.put("fichas", service.listar());
         model.put("instituciones", institucionService.listar());
@@ -69,20 +72,37 @@ public class ActividadController {
         model.put("docentes", docenteService.listar());
         model.put("areas", areaService.listar());
         model.put("medios", medioService.listar());
-        model.put("titulo", "Inicio de Actividad");
+        model.put("principal", principal);
 
         return "pages/actividades/formulario";
     }
 
     @RequestMapping(value = "/actividad/formulario", method = RequestMethod.POST)
-    public String guardar(@Valid Actividad actividad, BindingResult result, Model model, RedirectAttributes flash) throws Exception {
+    public String guardar(@Valid Actividad actividad, BindingResult result, Map<String, Object> model,
+                           RedirectAttributes flash) throws Exception {
 
-        // 👀 Binding result, siempre va junto al objeto que se envia, en este caso cargo
-//        if (result.hasErrors()){
+        // 👀 BindingResult, siempre va junto al objeto que se envia, en este caso cargo
+        if (result.hasErrors()){
 
+//            Map<String, String> errores = new HashMap<>();
+//            result.getFieldErrors().forEach( err -> {
+//                errores.put(err.getField(), "El campo ".concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
+//            });
 //            model.addAttribute("titulo", "Registrar Área");
-//            return "pages/areas/formulario";
-//        }
+//            model.addAttribute("error", errores);
+
+            model.put("actividad", actividad);
+            model.put("fichas", service.listar());
+            model.put("instituciones", institucionService.listar());
+            model.put("canales", canalService.listar());
+            model.put("niveles", nivelService.listar());
+            model.put("docentes", docenteService.listar());
+            model.put("areas", areaService.listar());
+            model.put("medios", medioService.listar());
+            model.put("titulo", "Inicio de Actividad");
+
+            return "pages/actividades/formulario";
+        }
 
         String mensaje = ( actividad.getId() != null ) ? "Actividad modificada correctamente." : "Actividad " +
                 "registrada exitosamente.";
@@ -107,7 +127,7 @@ public class ActividadController {
             return "redirect:/ficha-items/"+fichaRegistered.getId();
         }
 
-        flash.addFlashAttribute("success", mensaje );
+//        flash.addFlashAttribute("success", mensaje );
 //        logger.info(actividad.toString());
         return "redirect:/actividad/formulario";
     }

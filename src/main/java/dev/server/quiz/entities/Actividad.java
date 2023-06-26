@@ -1,6 +1,7 @@
 package dev.server.quiz.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -9,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Date;
 
 @Builder
@@ -30,6 +30,7 @@ public class Actividad implements Serializable {
     @JoinColumn(name = "institucion_id", nullable = false)
     private Institucion institucion;
 
+    @NotEmpty
     private String lugar;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,6 +45,7 @@ public class Actividad implements Serializable {
     @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
+    @NotEmpty
     private String numVisita;
 
     @Temporal(TemporalType.TIME)
@@ -60,16 +62,24 @@ public class Actividad implements Serializable {
     @JoinColumn(name = "docente_id", nullable = false)
     private Docente docente;
 
+    @NotEmpty
     private String ciclo;
+    @NotEmpty
     private String gradoSeccion;
+    @NotEmpty
     private String cantidadEstudiantes;
+    @NotEmpty
     private String numSemana;
+    @NotEmpty
     private String numActividad;
+
     private boolean directorioPadres;
     private boolean directorioEstudiantes;
 
+    @NotEmpty
     @Column(name = "competencia", columnDefinition = "TEXT")
     private String competencia;
+    @NotEmpty
     private String nombreActividad;
 
     @ManyToOne(fetch = FetchType.LAZY)

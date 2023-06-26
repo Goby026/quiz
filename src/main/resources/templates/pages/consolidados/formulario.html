@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+
+<head th:replace="~{layout/layout :: head}">
+</head>
+
+<body class="sb-nav-fixed">
+
+<nav th:replace="~{layout/layout :: header}"></nav>
+
+<div id="layoutSidenav">
+
+    <div th:replace="~{layout/layout :: sidebar}"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- TODO CONTENIDO AQUI -->
+                <div class="card mt-4 shadow p-3 mb-5 bg-body-tertiary rounded border-0">
+                    <div class="card-body">
+                        <h5 class="card-title"
+                            th:text="${titulo}"></h5>
+                        <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+
+                        <!--                        th:object="${consolidado}"-->
+                        <p>Docentes sin estudiantes con NEE</p>
+
+                        <form th:action="@{/consolidados/registro}"
+                              th:object="${form}"
+                              method="post">
+
+                            <table class="table">
+                                <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">ASPECTOS MONITOREADOS</th>
+                                    <th scope="col">ITEMS</th>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">PROCESO</th>
+                                    <th scope="col">SI</th>
+                                    <th scope="col">TOTAL</th>
+                                    <th scope="col">NIVEL DE AVANCE %</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="con, itemStat: *{consolidados}">
+                                    <input type="hidden"
+                                           th:field="*{consolidados[__${itemStat.index}__].id}">
+                                    <input type="hidden"
+                                           th:field="*{consolidados[__${itemStat.index}__].ficha.id}">
+
+                                    <th scope="row">
+                                        <input type="text"
+                                               hidden
+                                               th:field="*{consolidados[__${itemStat.index}__].categoriaItem.id}">
+                                        <label th:text="*{consolidados[__${itemStat.index}__].categoriaItem.descripcion}"></label>
+                                    </th>
+                                    <td>
+                                        <input type="text"
+                                               class="form-control"
+                                               readonly
+                                               th:field="*{consolidados[__${itemStat.index}__].cantidadItem}">
+                                    </td>
+                                    <td>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               th:field="*{consolidados[__${itemStat.index}__].noCat}">
+                                    </td>
+                                    <td>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               th:field="*{consolidados[__${itemStat.index}__].procesoCat}">
+                                    </td>
+                                    <td>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               th:field="*{consolidados[__${itemStat.index}__].siCat}">
+
+                                    </td>
+                                    <td><input type="text"
+                                               class="form-control"
+                                               value="0"></td>
+                                    <td>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               th:field="*{consolidados[__${itemStat.index}__].nivelAvance}">
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <a th:href="@{'/consolidados/formulario/'+ ${ficha.id}(format=pdf)}" target="_blank" type="button"
+                               class="btn btn-danger">Ficha PDF</a>
+                        </form>
+                        <br>
+
+<!--                        <p>Docentes sin estudiantes con NEE</p>-->
+<!--                        <form th:action="@{/consolidados/formulario}"-->
+<!--                              method="post">-->
+
+<!--                            <table class="table">-->
+<!--                                <thead>-->
+<!--                                <tr class="table-dark">-->
+<!--                                    <th scope="col">ASPECTOS MONITOREADOS</th>-->
+<!--                                    <th scope="col">ITEMS</th>-->
+<!--                                    <th scope="col">NO</th>-->
+<!--                                    <th scope="col">PROCESO</th>-->
+<!--                                    <th scope="col">SI</th>-->
+<!--                                    <th scope="col">TOTAL</th>-->
+<!--                                    <th scope="col">NIVEL DE AVANCE %</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row">PLANIFICACION Y COMUNICACION</th>-->
+<!--                                    <td>Mark</td>-->
+<!--                                    <td>Otto</td>-->
+<!--                                    <td>@mdo</td>-->
+<!--                                    <td>Mark</td>-->
+<!--                                    <td>Otto</td>-->
+<!--                                    <td>@mdo</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row">EVALUACION FORMATIVA</th>-->
+<!--                                    <td>Jacob</td>-->
+<!--                                    <td>Thornton</td>-->
+<!--                                    <td>@fat</td>-->
+<!--                                    <td>Mark</td>-->
+<!--                                    <td>Otto</td>-->
+<!--                                    <td>@mdo</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row">REUNIONES CON LA COMUNIDAD EDUCATIVA</th>-->
+<!--                                    <td>Larry the Bird</td>-->
+<!--                                    <td>Thornton</td>-->
+<!--                                    <td>@twitter</td>-->
+<!--                                    <td>Mark</td>-->
+<!--                                    <td>Otto</td>-->
+<!--                                    <td>@mdo</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row">TOTAL</th>-->
+<!--                                    <td>Jacob</td>-->
+<!--                                    <td>Thornton</td>-->
+<!--                                    <td>@fat</td>-->
+<!--                                    <td>Mark</td>-->
+<!--                                    <td>Otto</td>-->
+<!--                                    <td>@mdo</td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+
+<!--                            &lt;!&ndash;                    <a href="#" class="card-link">Another link</a>&ndash;&gt;-->
+<!--                        </form>-->
+                        <hr>
+                        <p>RECOMENDACIONES:</p>
+                        <div class="form-floating">
+                            <textarea class="form-control"
+                                      placeholder="Leave a comment here"
+                                      id="floatingTextarea"
+                                      th:text="${recomendacion}"
+                                      rows="6"
+                                      readonly
+                            ></textarea>
+                            <!--                            <label for="floatingTextarea">Comments</label>-->
+                        </div>
+                    </div>
+
+                    <pre th:text="${principal}"></pre>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+    </div>
+</div>
+</body>
+
+</html>

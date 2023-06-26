@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Builder
@@ -18,15 +19,27 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Indicador {
+public class Consolidado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long resultado;
+    private String titulo;
 
-    @Column(name = "recomendacion", columnDefinition = "TEXT")
-    private String recomendacion;
+    private int cantidadItem;
+    private int noCat;
+    private int procesoCat;
+    private int siCat;
+    private int total;
+    private double nivelAvance;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_item_id", nullable = true)
+    private CategoriaItem categoriaItem;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ficha_id", nullable = true)
+    private Ficha ficha;
 
     private static final long serialVersionUID = 1L;
 

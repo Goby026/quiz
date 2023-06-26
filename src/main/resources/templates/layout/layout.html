@@ -15,7 +15,7 @@
           content=""/>
     <title>QuizApp - SB Admin</title>
 
-    <link th:href="@{/css/bootstrap.min.css}"
+    <link th:href="@{/css/bootstrap_lux.min.css}"
           rel="stylesheet"/>
     <link th:href="@{/css/simple_datatables.css}"
           rel="stylesheet"/>
@@ -63,14 +63,14 @@
             <ul class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item"
-                       href="#!">Configuración</a></li>
+                       th:href="@{/config}">Configuración</a></li>
                 <li><a class="dropdown-item"
                        href="#!">Registro de actividad</a></li>
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
                 <li><a class="dropdown-item"
-                       href="#!">Cerrar sesión</a></li>
+                       th:href="@{/logout}">Cerrar sesión</a></li>
             </ul>
         </li>
     </ul>
@@ -109,10 +109,10 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link"
                                th:href="@{/fichas}">Fichas</a>
-                            <a class="nav-link"
-                               th:href="@{/actividades}">Actividades / Sesiones</a>
-                            <a class="nav-link"
-                               th:href="@{/consolidados}">Consolidados</a>
+                            <!--                            <a class="nav-link"-->
+                            <!--                               th:href="@{/actividades}">Actividades / Sesiones</a>-->
+                            <!--                            <a class="nav-link"-->
+                            <!--                               th:href="@{/consolidados}">Consolidados</a>-->
                         </nav>
                     </div>
                     <a class="nav-link collapsed"
@@ -159,9 +159,11 @@
                                        th:href="@{/categorias}">Categorias</a>
                                     <a class="nav-link"
                                        th:href="@{/canales}">Canales de comunicación</a>
-                                    <a class="nav-link" th:href="@{/medios}"
+                                    <a class="nav-link"
+                                       th:href="@{/medios}"
                                        href="password.html">Medios / Recursos</a>
-                                    <a class="nav-link" th:href="@{/indicadores}"
+                                    <a class="nav-link"
+                                       th:href="@{/indicadores}"
                                        href="password.html">Indicadores</a>
                                 </nav>
                             </div>

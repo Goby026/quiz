@@ -28,8 +28,10 @@
                               th:action="@{/actividad/formulario}"
                               th:object="${actividad}"
                               method="POST">
-                            <div class="col-md-6">
-                                <b class="mb-2">DATOS DE LA IE</b>
+                            <div class="col-md-6 p-4">
+                                <div class="mb-4">
+                                    <b>DATOS DE LA IE</b>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="mb-3">
@@ -46,6 +48,9 @@
                                                         th:text="${inst.nombre}">
                                                 </option>
                                             </select>
+
+                                            <div class="text-danger" th:if="${#fields.hasErrors('institucion.id')}"
+                                                 th:errors="*{institucion.id}"></div>
                                         </div>
                                     </div>
 
@@ -60,6 +65,8 @@
                                                     th:value="${niv.id}"
                                                     th:text="${niv.descripcion}"></option>
                                         </select>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('nivel.id')}"
+                                             th:errors="*{nivel.id}"></div>
                                     </div>
                                 </div>
 
@@ -70,6 +77,8 @@
                                            class="form-control"
                                            id="txtLugar"
                                            th:field="*{lugar}"/>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('lugar')}"
+                                         th:errors="*{lugar}"></div>
                                 </div>
 
                                 <div class="mb-3">
@@ -78,7 +87,12 @@
                                     <input type="text"
                                            class="form-control"
                                            id="txtMonitor"
-                                           th:field="*{usuario}"/>
+                                           th:field="*{usuario}"
+                                           th:value="${harduser.nombres}"
+                                           readonly/>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('usuario')}"
+                                         th:errors="*{usuario}"></div>
+                                    <p th:text="${harduser.nombres}"></p>
                                 </div>
 
                                 <div class="mb-3">
@@ -90,6 +104,8 @@
                                                    class="form-control"
                                                    id="txtNumVisita"
                                                    th:field="*{numVisita}"/>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('numVisita')}"
+                                                 th:errors="*{numVisita}"></div>
                                         </div>
 
                                         <div class="col-md-6">
@@ -104,6 +120,8 @@
                                                         th:value="${canal.id}"
                                                         th:text="${canal.descripcion}"></option>
                                             </select>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('canal.id')}"
+                                                 th:errors="*{canal.id}"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -119,12 +137,16 @@
                                                 th:value="${docente.id}"
                                                 th:text="${docente.nombres}"></option>
                                     </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('docente.id')}"
+                                         th:errors="*{docente.id}"></div>
                                 </div>
 
                             </div>
-                            <div class="col-md-6">
-                                <b class="mb-2">INFORMACIÓN DE LA PROGRAMACIÓN DE LA ACTIVIDAD O
-                                    SESIÓN</b>
+                            <div class="col-md-6 p-4 border-start">
+                                <div class="mb-4">
+                                    <b>INFORMACIÓN DE LA PROGRAMACIÓN DE LA ACTIVIDAD O
+                                        SESIÓN</b>
+                                </div>
                                 <div class="mb-3">
                                     <div class="row d-flex align-items-baseline">
                                         <div class="col-md-4">
@@ -134,6 +156,8 @@
                                                    class="form-control"
                                                    id="txtCiclo"
                                                    th:field="*{ciclo}"/>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('ciclo')}"
+                                                 th:errors="*{ciclo}"></div>
                                         </div>
 
                                         <div class="col-md-4">
@@ -143,6 +167,8 @@
                                                    class="form-control"
                                                    id="txtGradoSeccion"
                                                    th:field="*{gradoSeccion}"/>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('gradoSeccion')}"
+                                                 th:errors="*{gradoSeccion}"></div>
                                         </div>
 
                                         <div class="col-md-4">
@@ -153,6 +179,8 @@
                                                    placeholder="Cantidad estudiantes AeC"
                                                    id="txtCantEstudiantes"
                                                    th:field="*{cantidadEstudiantes}"/>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('cantidadEstudiantes')}"
+                                                 th:errors="*{cantidadEstudiantes}"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -166,6 +194,8 @@
                                                    class="form-control"
                                                    id="txtNumSemana"
                                                    th:field="*{numSemana}"/>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('numSemana')}"
+                                                 th:errors="*{numSemana}"></div>
                                         </div>
 
                                         <div class="col-md-4">
@@ -175,6 +205,8 @@
                                                    class="form-control"
                                                    id="txtNumSesion"
                                                    th:field="*{numActividad}"/>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('numActividad')}"
+                                                 th:errors="*{numActividad}"></div>
                                         </div>
 
                                         <div class="col-md-4">
@@ -209,6 +241,8 @@
                                                         th:value="${area.id}"
                                                         th:text="${area.nombreCurso}"></option>
                                             </select>
+                                            <div class="text-danger" th:if="${#fields.hasErrors('area.id')}"
+                                                 th:errors="*{area.id}"></div>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="checkDirectorioEstudiantes"
@@ -236,6 +270,8 @@
                                           id="txtCompetencia"
                                           style="height: 100px"
                                           th:field="*{competencia}"></textarea>
+                                <div class="text-danger" th:if="${#fields.hasErrors('competencia')}"
+                                     th:errors="*{competencia}"></div>
                             </div>
                             <div class="col-12">
                                 <label for="txtNomSesion"
@@ -244,6 +280,8 @@
                                           id="txtNomSesion"
                                           style="height: 100px"
                                           th:field="*{nombreActividad}"></textarea>
+                                <div class="text-danger" th:if="${#fields.hasErrors('nombreActividad')}"
+                                     th:errors="*{nombreActividad}"></div>
                             </div>
 
                             <div class="mb-3">
@@ -262,6 +300,8 @@
                                                     th:value="${m.id}"
                                                     th:text="${m.descripcion}"></option>
                                         </select>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('medio.id')}"
+                                             th:errors="*{medio.id}"></div>
                                     </div>
                                     <div class="col-md-2">
                                         <label for="txtCantidadMedio"
@@ -270,6 +310,8 @@
                                                class="form-control"
                                                id="txtCantidadMedio"
                                                th:field="*{cantidadMedio}">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('cantidadMedio')}"
+                                             th:errors="*{cantidadMedio}"></div>
                                     </div>
                                     <div class="col-md-2">
                                         <label for="txtPercent"
@@ -277,7 +319,10 @@
                                         <input type="text"
                                                class="form-control"
                                                id="txtPercent"
+                                               readonly
                                                th:field="*{porcentajeMedio}">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('porcentajeMedio')}"
+                                             th:errors="*{porcentajeMedio}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -333,6 +378,26 @@
         <footer th:replace="~{layout/layout :: footer}"></footer>
     </div>
 </div>
+
+<script>
+    let txtCantEstudiantes = document.getElementById('txtCantEstudiantes');
+    let txtPercent = document.getElementById('txtPercent');
+    let txtCantidadMedio = document.getElementById('txtCantidadMedio');
+
+    txtCantidadMedio.addEventListener('keyup', (e)=> {
+
+        let cantidadMedio = Number(e.target.value);
+        let cantEstudiantes = Number(txtCantEstudiantes.value);
+
+        if(cantEstudiantes <= 0 || cantEstudiantes == 'null' || cantEstudiantes == 'undefined'){
+            txtPercent.value = 0;
+        }else{
+            txtPercent.value = Number((cantidadMedio * 100) / cantEstudiantes).toFixed(2);
+        }
+
+    });
+</script>
+
 </body>
 
 </html>
