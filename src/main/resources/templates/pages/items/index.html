@@ -34,7 +34,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>ITEM</th>
-                                <th>CREACION</th>
+                                <th>CATEGORIA</th>
                                 <th>EDITAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
@@ -43,7 +43,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>ITEM</th>
-                                <th>CREACION</th>
+                                <th>CATEGORIA</th>
                                 <th>EDITAR</th>
                                 <th>ELIMINAR</th>
                             </tr>
@@ -52,7 +52,7 @@
                             <tr th:each="item: ${items}">
                                 <td th:text="${item.id}"></td>
                                 <td th:text="${item.descripcion}"></td>
-                                <td th:text="${item.createdAt}"></td>
+                                <td th:text="${item.categoriaItem.descripcion}"></td>
                                 <td><a th:href="@{/items/formulario/}+ ${item.id}"
                                        class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a></td>
                                 <td><a th:href="@{/items/eliminar/}+ ${item.id}"

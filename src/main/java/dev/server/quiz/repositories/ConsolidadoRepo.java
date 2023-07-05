@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ConsolidadoRepo extends JpaRepository<Consolidado, Long> {
     List<Consolidado> findByFicha(Ficha ficha);
+    List<Consolidado> findByFichaId(long id);
 }

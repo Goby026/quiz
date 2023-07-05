@@ -10,6 +10,8 @@ import dev.server.quiz.services.ConsolidadoService;
 import dev.server.quiz.services.FichaItemService;
 import dev.server.quiz.services.FichaService;
 import dev.server.quiz.services.IndicadorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +26,8 @@ import java.util.Map;
 
 @Controller
 public class ConsolidadoController {
+
+    private final static Logger logger = LoggerFactory.getLogger(ConsolidadoController.class);
 
     private final FichaService fichaService;
     private final FichaItemService fichaItemService;

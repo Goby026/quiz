@@ -44,69 +44,88 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ficha, itemStat : *{fichaItems}">
-                                        <input type="hidden"
-                                               th:field="*{fichaItems[__${itemStat.index}__].id}">
-                                        <input type="hidden"
-                                               th:field="*{fichaItems[__${itemStat.index}__].ficha.id}">
-                                        <input type="hidden"
-                                               th:field="*{fichaItems[__${itemStat.index}__].item.id}">
-                                        <td width="50%" th:text="${ficha.item.descripcion}"></td>
-                                        <td>
-                                            <input type="number"
-                                                   min="0"
-                                                   max="2"
-                                                   class="form-control"
-                                                   th:field="*{fichaItems[__${itemStat.index}__].valoracion}"/>
-                                        </td>
-                                        <td class="text-center">
-<!--                                            <button type="button"-->
-<!--                                                    class="btn btn-info btn-sm text-light"></button>-->
+                                    <div th:each="cat: ${categorias}">
+                                        <tr class="bg-secondary">
+                                            <td colspan="4">
+                                                <b th:text="${cat.descripcion}" class="text-light"></b>
+                                            </td>
+                                        </tr>
 
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                    th:attr="data-bs-target='#openModal'+${ficha.id}">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                                        <tr th:each="ficha, itemStat : *{fichaItems}">
+                                            <div th:if="${cat.id == ficha.item.categoriaItem.id }">
+                                                <input type="hidden"
+                                                       th:field="*{fichaItems[__${itemStat.index}__].id}">
+                                                <input type="hidden"
+                                                       th:field="*{fichaItems[__${itemStat.index}__].ficha.id}">
+                                                <input type="hidden"
+                                                       th:field="*{fichaItems[__${itemStat.index}__].item.id}">
+                                                <td width="50%" th:text="${ficha.item.descripcion}"></td>
+                                                <td>
+                                                    <input type="number"
+                                                           min="0"
+                                                           max="2"
+                                                           class="form-control"
+                                                           th:field="*{fichaItems[__${itemStat.index}__].valoracion}"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <!--                                            <button type="button"-->
+                                                    <!--                                                    class="btn btn-info btn-sm text-light"></button>-->
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" th:id="'openModal'+${ficha.id}" tabindex="-1"
-                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel"
-                                                                th:text="${ficha.id} + ' Subir evidencia'"></h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label for="formFile" class="form-label">Seleccionar
-                                                                    archivo
-                                                                </label>
-                                                                <input class="form-control" type="file" id="formFile">
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            th:attr="data-bs-target='#openModal'+${ficha.id}">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" th:id="'openModal'+${ficha.id}"
+                                                         tabindex="-1"
+                                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel"
+                                                                        th:text="${ficha.id} + ' Subir evidencia'"></h1>
+                                                                    <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <label for="formFile" class="form-label">Seleccionar
+                                                                            archivo
+                                                                        </label>
+                                                                        <input class="form-control" type="file"
+                                                                               id="formFile">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cerrar
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary">
+                                                                        Guardar
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Cerrar</button>
-                                                            <button type="button" class="btn btn-primary">Guardar
-                                                            </button>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td width="30%">
-                                            <div class="form-floating">
+                                                </td>
+                                                <td width="30%">
+                                                    <div class="form-floating">
                                             <textarea class="form-control" rows="4"
                                                       placeholder="Ingresar observación"
                                                       id="floatingTextarea"
                                                       th:field="*{fichaItems[__${itemStat.index}__].descripcion}"></textarea>
-                                                <label for="floatingTextarea">Comentarios</label>
+                                                        <label for="floatingTextarea">Comentarios</label>
+                                                    </div>
+                                                </td>
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </tr>
+
+                                    </div>
+
                                     </tbody>
                                 </table>
                             </fieldset>

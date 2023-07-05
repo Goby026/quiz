@@ -4,6 +4,8 @@ import dev.server.quiz.entities.*;
 import dev.server.quiz.repositories.ConsolidadoRepo;
 import dev.server.quiz.repositories.FichaItemRepo;
 import dev.server.quiz.repositories.ItemRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Service
 public class FichaItemService implements DAOService<FichaItem>{
+
+    private static final Logger logger = LoggerFactory.getLogger(FichaItemService.class);
 
     private final FichaItemRepo repo;
     private final ItemRepo itemRepo;
@@ -53,9 +57,11 @@ public class FichaItemService implements DAOService<FichaItem>{
 
         for (CategoriaItem cat : categoriaItemService.listar()) {
             int cantItems = 0;
+            int cantNo = 0;
             Consolidado consolidado = new Consolidado();
 
             for (FichaItem fi: fichaItems ) {
+                logger.info("ficha item -----> " + fi);
                 if (fi.getItem().getCategoriaItem() == cat){
                     cantItems += 1;
                 }

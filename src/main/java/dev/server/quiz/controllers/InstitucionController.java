@@ -79,9 +79,10 @@ public class InstitucionController {
             flash.addFlashAttribute("error", "No existe el id seleccionado.");
             return "redirect:/instituciones";
         }
-
+        model.put("dres", dreService.listar());
+        model.put("ugeles", ugelService.listar());
         model.put("institucion", institucion);
-        model.put("titulo", "Registrar Institución");
+        model.put("titulo", "Editar Institución - "+ institucion.getNombre());
 
         return "pages/instituciones/formulario";
     }

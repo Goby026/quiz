@@ -43,4 +43,8 @@ public class ConsolidadoService implements DAOService<Consolidado>{
     public List<Consolidado> listarPorFicha(Ficha ficha) throws Exception {
         return repo.findByFicha(ficha);
     }
+
+    public List<Consolidado> listarPorIdFicha(long id) throws Exception {
+        return repo.findByFichaId(id);
+    }
 }
