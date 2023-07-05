@@ -82,15 +82,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="txtMonitor"
-                                           class="form-label">Monitor</label>
+                                    <label class="form-label">Monitor</label>
 <!--                                    <input type="text"-->
 <!--                                           class="form-control"-->
 <!--                                           id="txtMonitor"-->
 <!--                                           th:field="*{usuario}"-->
 <!--                                           th:value="${harduser.nombres}"-->
 <!--                                           readonly/>-->
-                                    <p th:text="${harduser.nombres +' '+harduser.apellidos}"></p>
+                                    <p th:text="${harduser.nombres +' '+harduser.apellidos}" th:field="*{usuario}"></p>
                                     <div class="text-danger" th:if="${#fields.hasErrors('usuario')}"
                                          th:errors="*{usuario}"></div>
 

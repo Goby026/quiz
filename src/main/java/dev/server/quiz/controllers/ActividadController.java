@@ -119,16 +119,18 @@ public class ActividadController {
         ficha.setUsuario("DEV-USER");
         ficha.setFecha(new Date());
         ficha.setActividad(actividadRegistered);
+        ficha.setIndicador(null);
 
         Ficha fichaRegistered = fichaService.registrar(ficha);
 
-        if (actividadRegistered.getId() != 0 || actividadRegistered.getId() != null || actividadRegistered.getId() > 0 ){
-            fichaItemService.registrarItems(fichaRegistered);
-            return "redirect:/ficha-items/"+fichaRegistered.getId();
-        }
+        fichaItemService.registrarItems(fichaRegistered);
+//
+//        if (actividadRegistered.getId() > 0 && fichaRegistered.getId() > 0 ){
+//            fichaItemService.registrarItems(fichaRegistered);
+//            return "redirect:/ficha-items/"+fichaRegistered.getId();
+//        }
 
-//        flash.addFlashAttribute("success", mensaje );
-//        logger.info(actividad.toString());
+//        logger.info("ACTIVIDAD ----> " + actividad.toString());
         return "redirect:/actividad/formulario";
     }
 }

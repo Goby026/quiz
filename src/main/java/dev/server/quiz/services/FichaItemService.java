@@ -55,6 +55,7 @@ public class FichaItemService implements DAOService<FichaItem>{
         //registrar consolidado por cada categoriaItem
 //        List<CategoriaItem> categorias = categoriaItemService.listar();
 
+        //TODO: REVISAR BUG AQUI
         for (CategoriaItem cat : categoriaItemService.listar()) {
             int cantItems = 0;
             int cantNo = 0;
