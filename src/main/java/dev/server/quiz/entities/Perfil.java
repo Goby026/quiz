@@ -9,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -18,18 +20,23 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Medio implements Serializable {
+public class Perfil implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String descripcion;
+    private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipomedio_id", nullable = false)
-    private TipoMedio tipoMedio;
+    private int estado;
 
     private static final long serialVersionUID = 1L;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuarios_perfiles"
+            , joinColumns = @JoinColumn(name = "perfil_id")
+            , inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private Set<Usuario> usuarios = new HashSet<>();
 
     @CreationTimestamp()
     @Column(name = "created_at", updatable=false)

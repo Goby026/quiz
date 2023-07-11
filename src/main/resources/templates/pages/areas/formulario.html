@@ -24,7 +24,6 @@
                         <h5 class="card-title"
                             th:text="${titulo}"></h5>
                         <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
-
                         <form th:action="@{/areas/formulario}"
                               th:object="${area}"
                               method="post">
@@ -37,6 +36,7 @@
                                        id="txtArea"
                                        th:field="*{nombreCurso}"
                                        th:errorclass="'form-control'"/>
+
                                 <small class="form-text text-danger"
                                        th:if="${#fields.hasErrors('nombreCurso')}"
                                        th:errors="*{nombreCurso}"></small>

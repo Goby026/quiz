@@ -39,31 +39,45 @@ public class AreaController {
     @RequestMapping(value = "/areas/formulario", method = RequestMethod.POST)
     public String guardar(@Valid Area area, BindingResult result, Model model, RedirectAttributes flash) throws Exception {
 
+//        if (area.getNombreCurso().isEmpty()) {
+//            model.addAttribute("titulo", "Registrar Área");
+//            flash.addFlashAttribute("error", "Indique el nombre de área");
+//            return "redirect:/areas/formulario";
+//        }
+
         // 👀 Binding result, siempre va junto al objeto que se envia, en este caso cargo
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("titulo", "Registrar Área");
             return "pages/areas/formulario";
         }
 
-        String mensaje = ( area.getId() != null ) ? "Área modificada correctamente." : "Área registrada " +
+        String mensaje = (area.getId() != null) ? "Área modificada correctamente." : "Área registrada " +
                 "exitosamente.";
 
         service.registrar(area);
-        flash.addFlashAttribute("success", mensaje );
+        flash.addFlashAttribute("success", mensaje);
         return "redirect:/areas";
     }
 
     @RequestMapping(value = "/areas/formulario/{id}")
     public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) throws Exception {
         Area area = service.obtener(id);
-        if (id>0){
-            area = service.obtener(id);
-            if (area == null){
+
+        if (id > 0) {
+
+//            if (area.getNombreCurso().isEmpty()) {
+//                model.put("area", area);
+//                model.put("titulo", "Registrar Área");
+//                flash.addFlashAttribute("error", "Indique el nombre de área");
+//                return "pages/areas/formulario";
+//            }
+//            area = service.obtener(id);
+            if (area == null) {
                 flash.addFlashAttribute("error", "No se puede cargar el area seleccionada 👀");
-            }else{
+            } else {
                 flash.addFlashAttribute("success", "Área modificada correctamente.");
             }
-        }else{
+        } else {
             flash.addFlashAttribute("error", "No existe el id seleccionado.");
             return "redirect:/areas";
         }
@@ -75,7 +89,7 @@ public class AreaController {
 
     @RequestMapping(value = "/areas/eliminar/{id}")
     public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) throws Exception {
-        if (id > 0 ){
+        if (id > 0) {
             service.eliminar(id);
             flash.addFlashAttribute("success", "Se eliminó el área");
         }

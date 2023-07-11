@@ -17,29 +17,29 @@
         <main>
             <div class="container-fluid px-4">
                 <!-- TODO CONTENIDO AQUI -->
-                <h1 th:text="${titulo}"></h1>
+<!--                <h1 th:text="${titulo}"></h1>-->
 
-                <div th:object="${cargo}"
-                     th:remove="tag">
-                    <ul th:if="${#fields.hasErrors('*')}"
-                        class="list-group">
-                        <li class="list-group-item alert alert-danger" th:each="err: ${#fields.errors('*')}"
-                            th:text="${err}"></li>
-                    </ul>
-                </div>
+<!--                <div th:object="${cargo}"-->
+<!--                     th:remove="tag">-->
+<!--                    <ul th:if="${#fields.hasErrors('*')}"-->
+<!--                        class="list-group">-->
+<!--                        <li class="list-group-item alert alert-danger" th:each="err: ${#fields.errors('*')}"-->
+<!--                            th:text="${err}"></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
 
                 <div class="card mt-4 shadow p-3 mb-5 bg-body-tertiary rounded border-0"
                      style="width: 22rem;">
                     <div class="card-body">
-                        <!--                    <h5 class="card-title">Datos</h5>-->
-                        <!--                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+                        <h5 class="card-title"
+                            th:text="${titulo}"></h5>
 
                         <form th:action="@{/cargos/formulario}"
                               th:object="${cargo}"
                               method="post">
                             <div class="mb-3">
                                 <label for="txtCargo"
-                                       class="form-label">Cargo</label>
+                                       class="form-label">Nombre de cargo</label>
                                 <input type="text"
                                        class="form-control"
                                        id="txtCargo"

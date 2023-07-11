@@ -17,13 +17,14 @@ public class FichaItemService implements DAOService<FichaItem>{
     private static final Logger logger = LoggerFactory.getLogger(FichaItemService.class);
 
     private final FichaItemRepo repo;
-    private final ItemRepo itemRepo;
+//    private final ItemRepo itemRepo;
+    private final ItemService itemService;
     private final CategoriaItemService categoriaItemService;
     private final ConsolidadoRepo consolidadoRepo;
 
-    public FichaItemService(FichaItemRepo repo, ItemRepo itemRepo, CategoriaItemService categoriaItemService, ConsolidadoRepo consolidadoRepo) {
+    public FichaItemService(FichaItemRepo repo, ItemRepo itemRepo, ItemService itemService, CategoriaItemService categoriaItemService, ConsolidadoRepo consolidadoRepo) {
         this.repo = repo;
-        this.itemRepo = itemRepo;
+        this.itemService = itemService;
         this.categoriaItemService = categoriaItemService;
         this.consolidadoRepo = consolidadoRepo;
     }
@@ -41,28 +42,30 @@ public class FichaItemService implements DAOService<FichaItem>{
 //        List<Item> items = itemRepo.findAll();
         List<FichaItem> fichaItems = new ArrayList<FichaItem>();
 
-        for (Item item: itemRepo.findAll()) {
+        for (Item item: itemService.listar() ) {
+
             FichaItem fichaItem = new FichaItem();
             fichaItem.setDescripcion("");
             fichaItem.setValoracion(0);
             fichaItem.setFicha(ficha);
             fichaItem.setItem(item);
-            fichaItem.setEvidencias(null);
+//            fichaItem.setEvidencias(null);
             repo.save(fichaItem);
             fichaItems.add(fichaItem);
         }
 
-        //registrar consolidado por cada categoriaItem
-//        List<CategoriaItem> categorias = categoriaItemService.listar();
+
+
+//***********REGISTRA CONSOLIDADO POR CADA CATEGORIA ITEM***********
+        List<CategoriaItem> categorias = categoriaItemService.listar();
 
         //TODO: REVISAR BUG AQUI
-        for (CategoriaItem cat : categoriaItemService.listar()) {
+        for (CategoriaItem cat : categorias) {
             int cantItems = 0;
             int cantNo = 0;
             Consolidado consolidado = new Consolidado();
 
             for (FichaItem fi: fichaItems ) {
-                logger.info("ficha item -----> " + fi);
                 if (fi.getItem().getCategoriaItem() == cat){
                     cantItems += 1;
                 }
@@ -79,9 +82,7 @@ public class FichaItemService implements DAOService<FichaItem>{
             consolidado.setFicha(ficha);
 
             consolidadoRepo.save(consolidado);
-
         }
-
         return fichaItems;
     }
 

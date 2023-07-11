@@ -24,8 +24,11 @@
                             <h4 th:text="${titulo}"></h4>
                         </div>
                         <a class="btn btn-info" th:href="@{/cargos/formulario}">
-                            +
+                            <i class="fas fa-plus-square text-light"></i>
                         </a>
+                    </div>
+                    <div th:if="${success != null}" class="alert alert-success" role="alert">
+                        <p th:text="${success}" class="text-success"></p>
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">

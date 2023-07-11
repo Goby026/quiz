@@ -1,6 +1,7 @@
 package dev.server.quiz.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @DynamicInsert
 @DynamicUpdate
 @Entity
@@ -30,10 +30,14 @@ public class Docente implements Serializable {
 
     @NotEmpty
     private String nombres;
+
     @NotEmpty
     private String apellidos;
 
+    @NotEmpty
     private String dni;
+
+    @Email
     private String correo;
     private String imagen;
     private String telefono;

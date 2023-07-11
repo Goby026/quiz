@@ -81,7 +81,7 @@ public class ActividadController {
     public String guardar(@Valid Actividad actividad, BindingResult result, Map<String, Object> model,
                            RedirectAttributes flash) throws Exception {
 
-        // 👀 BindingResult, siempre va junto al objeto que se envia, en este caso cargo
+        // 👀 BindingResult, siempre va junto al objeto que se envia, en este caso actividad
         if (result.hasErrors()){
 
 //            Map<String, String> errores = new HashMap<>();
@@ -107,6 +107,7 @@ public class ActividadController {
         String mensaje = ( actividad.getId() != null ) ? "Actividad modificada correctamente." : "Actividad " +
                 "registrada exitosamente.";
 
+//        *******REGISTRAR ACTIVIDAD*******
         LocalTime localTime = LocalTime.now();
         actividad.setHora_inicio(localTime);
         actividad.setHora_fin(localTime);
@@ -114,7 +115,7 @@ public class ActividadController {
 
         Actividad actividadRegistered = service.registrar(actividad);
 
-//      registrar ficha
+//        *******REGISTRAR FICHA*******
         Ficha ficha = new Ficha();
         ficha.setUsuario("DEV-USER");
         ficha.setFecha(new Date());
@@ -123,12 +124,10 @@ public class ActividadController {
 
         Ficha fichaRegistered = fichaService.registrar(ficha);
 
-        fichaItemService.registrarItems(fichaRegistered);
-//
-//        if (actividadRegistered.getId() > 0 && fichaRegistered.getId() > 0 ){
-//            fichaItemService.registrarItems(fichaRegistered);
-//            return "redirect:/ficha-items/"+fichaRegistered.getId();
-//        }
+        if (actividadRegistered.getId() > 0 && fichaRegistered.getId() > 0 ){
+            fichaItemService.registrarItems(fichaRegistered);
+            return "redirect:/ficha-items/"+fichaRegistered.getId();
+        }
 
 //        logger.info("ACTIVIDAD ----> " + actividad.toString());
         return "redirect:/actividad/formulario";

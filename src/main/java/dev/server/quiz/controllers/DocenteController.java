@@ -50,6 +50,8 @@ public class DocenteController {
 
         // 👀 Binding result, siempre va junto al objeto que se envia, en este caso cargo
         if (result.hasErrors()){
+            model.addAttribute("docente", docente);
+            model.addAttribute("instituciones", instService.listar());
             model.addAttribute("titulo", "Registrar Docente");
             return "pages/docentes/formulario";
         }

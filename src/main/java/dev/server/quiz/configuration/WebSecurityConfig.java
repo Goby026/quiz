@@ -17,6 +17,7 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /*
     @Bean
     public UserDetailsService userDetailsService()throws Exception{
 
@@ -35,6 +36,7 @@ public class WebSecurityConfig {
 
         return manager;
     }
+     */
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

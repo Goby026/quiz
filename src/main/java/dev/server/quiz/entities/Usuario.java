@@ -7,18 +7,20 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Usuario {
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,9 +34,8 @@ public class Usuario {
     private String email;
     private Boolean enabled;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cargo_id", nullable = false)
-    private Cargo cargo;
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
+    private Set<Perfil> perfiles = new HashSet<>();
 
     private static final long serialVersionUID = 1L;
 

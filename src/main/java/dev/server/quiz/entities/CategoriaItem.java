@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -17,7 +18,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @DynamicInsert
 @DynamicUpdate
 @Entity
@@ -30,7 +30,7 @@ public class CategoriaItem implements Serializable {
     private String descripcion;
 
     @OneToMany(mappedBy = "categoriaItem", fetch = FetchType.LAZY)
-    private Set<Item> items;
+    private List<Item> items;
 
     private static final long serialVersionUID = 1L;
 
