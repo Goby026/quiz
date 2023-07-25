@@ -10,4 +10,6 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Long> {
 //    @Query("select a from Article a where a.creationDateTime <= :creationDateTime")
 //    List<Article> findAllWithCreationDateTimeBefore(
 //            @Param("creationDateTime") Date creationDateTime);
+
+    Usuario findByUsername( String username );
 }

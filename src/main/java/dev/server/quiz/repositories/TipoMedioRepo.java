@@ -1,4 +1,4 @@
-package dev.server.quiz.services;
+package dev.server.quiz.repositories;
 
 import dev.server.quiz.entities.TipoMedio;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -12,7 +12,7 @@
 
 <div id="layoutSidenav">
 
-    <div th:replace="~{layout/layout :: sidebar}"></div>
+    <div th:replace="~{layout/layout :: sidebar(activeLink=${activeLink})}"></div>
 
     <div id="layoutSidenav_content">
         <main>

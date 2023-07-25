@@ -3,9 +3,12 @@ package dev.server.quiz.controllers;
 import dev.server.quiz.entities.Actividad;
 import dev.server.quiz.entities.Ficha;
 import dev.server.quiz.services.*;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -50,6 +54,7 @@ public class ActividadController {
 
     @RequestMapping("/actividad")
     public String listar(Model model) throws Exception {
+        model.addAttribute("activeLink", "/actividad");
         model.addAttribute("titulo", TITULO);
         model.addAttribute("areas", this.areaService.listar());
         model.addAttribute("canales", this.canalService.listar());
@@ -81,15 +86,18 @@ public class ActividadController {
     public String guardar(@Valid Actividad actividad, BindingResult result, Map<String, Object> model,
                            RedirectAttributes flash) throws Exception {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
         // 👀 BindingResult, siempre va junto al objeto que se envia, en este caso actividad
         if (result.hasErrors()){
 
-//            Map<String, String> errores = new HashMap<>();
-//            result.getFieldErrors().forEach( err -> {
-//                errores.put(err.getField(), "El campo ".concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
-//            });
+            Map<String, String> errores = new HashMap<>();
+            result.getFieldErrors().forEach( err -> {
+                errores.put(err.getField(), "El campo ".concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
+            });
 //            model.addAttribute("titulo", "Registrar Área");
-//            model.addAttribute("error", errores);
+            model.put("error", errores);
 
             model.put("actividad", actividad);
             model.put("fichas", service.listar());
@@ -107,17 +115,17 @@ public class ActividadController {
         String mensaje = ( actividad.getId() != null ) ? "Actividad modificada correctamente." : "Actividad " +
                 "registrada exitosamente.";
 
-//        *******REGISTRAR ACTIVIDAD*******
+//        *******[REGISTRAR ACTIVIDAD]*******
         LocalTime localTime = LocalTime.now();
         actividad.setHora_inicio(localTime);
         actividad.setHora_fin(localTime);
-        actividad.setUsuario(usuarioService.obtener(2L));
+        actividad.setUsuario(usuarioService.obtenerPorUsername(username));
 
         Actividad actividadRegistered = service.registrar(actividad);
 
-//        *******REGISTRAR FICHA*******
+//        *******[REGISTRAR FICHA]*******
         Ficha ficha = new Ficha();
-        ficha.setUsuario("DEV-USER");
+        ficha.setUsuario(username);
         ficha.setFecha(new Date());
         ficha.setActividad(actividadRegistered);
         ficha.setIndicador(null);
@@ -128,8 +136,6 @@ public class ActividadController {
             fichaItemService.registrarItems(fichaRegistered);
             return "redirect:/ficha-items/"+fichaRegistered.getId();
         }
-
-//        logger.info("ACTIVIDAD ----> " + actividad.toString());
         return "redirect:/actividad/formulario";
     }
 }

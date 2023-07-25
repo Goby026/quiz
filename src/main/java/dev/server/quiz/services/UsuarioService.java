@@ -34,4 +34,8 @@ public class UsuarioService implements DAOService<Usuario>{
     public List<Usuario> listar() throws Exception {
         return repo.findAll();
     }
+
+    public Usuario obtenerPorUsername(String username) throws Exception {
+        return repo.findByUsername(username);
+    }
 }

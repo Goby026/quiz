@@ -25,6 +25,7 @@ public class CategoriaItemController {
     @RequestMapping("/categorias")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/categorias");
         model.addAttribute("titulo", "Lista de categorias");
         model.addAttribute("categorias", service.listar());
 

@@ -27,6 +27,7 @@ public class MedioController {
 
     @RequestMapping("/medios")
     public String listar(Model model) throws Exception {
+        model.addAttribute("activeLink", "/medios");
         model.addAttribute("titulo", "Lista de medios de comunicación");
         model.addAttribute("medios", this.service.listar());
         return "pages/medios/index";

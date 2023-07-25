@@ -28,6 +28,7 @@ public class CargoController {
     @RequestMapping("/cargos")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/cargos");
         model.addAttribute("titulo", "Lista de cargos");
         model.addAttribute("cargos", service.listar());
 

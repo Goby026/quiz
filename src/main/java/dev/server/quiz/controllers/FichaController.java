@@ -2,8 +2,11 @@ package dev.server.quiz.controllers;
 
 import dev.server.quiz.entities.Actividad;
 import dev.server.quiz.services.*;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +23,13 @@ public class FichaController {
     }
 
     @RequestMapping("/fichas")
-    public String listar(Model model) throws Exception {
+    public String listar(Model model, HttpSession session) throws Exception {
 
-        Actividad actividad = new Actividad();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        session.setAttribute("username", username);
 
+        model.addAttribute("activeLink", "/fichas");
         model.addAttribute("titulo", "Evaluaciones realizadas");
         model.addAttribute("fichas", service.listar());
 

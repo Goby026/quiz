@@ -28,6 +28,7 @@ public class ItemController {
     @RequestMapping("/items")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/items");
         model.addAttribute("titulo", "Lista de items");
         model.addAttribute("items", service.listar());
 

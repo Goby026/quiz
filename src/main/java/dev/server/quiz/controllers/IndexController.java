@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 public class IndexController {
 
@@ -13,9 +15,17 @@ public class IndexController {
             "APRENDO EN CASA 2021";
 
     @RequestMapping("/index")
-    public String listar(Model model, HttpServletRequest request) throws Exception {
+    public String listar(Model model, HttpServletRequest request, Principal principal) throws Exception {
 
+        String usuario = "UNLOGGED";
+
+        if (principal != null){
+            usuario = principal.getName();
+        }
+
+        model.addAttribute("activeLink", "/index");
         model.addAttribute("titulo", TITULO);
+        model.addAttribute("principal", usuario);
         model.addAttribute("request", request);
 
         return "index";

@@ -31,6 +31,8 @@ public class DocenteController {
 
     @RequestMapping("/docentes")
     public String listar(Model model) throws Exception {
+
+        model.addAttribute("activeLink", "/docentes");
         model.addAttribute("titulo", "Lista de docentes");
         model.addAttribute("docentes", this.service.listar());
         return "pages/docentes/index";

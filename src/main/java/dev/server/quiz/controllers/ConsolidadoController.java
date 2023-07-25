@@ -55,18 +55,18 @@ public class ConsolidadoController {
         int reuCom = 0;
         int pracInc = 0;
 
-        for (Consolidado c: consolidados) {
+        for (Consolidado c : consolidados) {
             for (FichaItem fi : fichasItems) {
-                if (fi.getItem().getCategoriaItem().getId() == 1){
+                if (fi.getItem().getCategoriaItem().getId() == 1) {
                     planCom += fi.getValoracion();
                     c.setTotal(planCom);
-                }else if(fi.getItem().getCategoriaItem().getId() == 2){
+                } else if (fi.getItem().getCategoriaItem().getId() == 2) {
                     evaFor += fi.getValoracion();
                     c.setTotal(evaFor);
-                }else if(fi.getItem().getCategoriaItem().getId() == 3){
+                } else if (fi.getItem().getCategoriaItem().getId() == 3) {
                     reuCom += fi.getValoracion();
                     c.setTotal(reuCom);
-                }else if(fi.getItem().getCategoriaItem().getId() == 4){
+                } else if (fi.getItem().getCategoriaItem().getId() == 4) {
                     pracInc += fi.getValoracion();
                     c.setTotal(pracInc);
                 }
@@ -75,9 +75,11 @@ public class ConsolidadoController {
 //
 //        double total = planCom + evaFor + reuCom + pracInc;
 
-        for ( Indicador i : indicadores) {
-            if (i.getResultado() == 1){
-                recomendacion = i.getRecomendacion();
+        for (Indicador i : indicadores) {
+            for (int nota = 0; nota <= 20; nota++) {
+                if (i.getResultado() == nota) {
+                    recomendacion = i.getRecomendacion();
+                }
             }
         }
 

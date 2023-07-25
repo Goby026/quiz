@@ -26,6 +26,7 @@ public class IndicadorController {
     @RequestMapping("/indicadores")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/indicadores");
         model.addAttribute("titulo", "Lista de indicadores");
         model.addAttribute("indicadores", service.listar());
 

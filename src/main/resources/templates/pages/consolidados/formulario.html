@@ -63,29 +63,24 @@
                                                th:field="*{consolidados[__${itemStat.index}__].cantidadItem}">
                                     </td>
                                     <td>
-
                                         <input type="text"
                                                class="form-control"
                                                th:field="*{consolidados[__${itemStat.index}__].noCat}">
                                     </td>
                                     <td>
-
                                         <input type="text"
                                                class="form-control"
-                                               th:field="*{consolidados[__${itemStat.index}__].procesoCat}">
+                                               th:field="*{consolidados[__${itemStat.index}__].procesoCat}" readonly>
                                     </td>
                                     <td>
-
                                         <input type="text"
                                                class="form-control"
                                                th:field="*{consolidados[__${itemStat.index}__].siCat}">
-
                                     </td>
                                     <td><input type="text"
                                                class="form-control"
-                                               value="0"></td>
+                                               th:field="*{consolidados[__${itemStat.index}__].total}"></td>
                                     <td>
-
                                         <input type="text"
                                                class="form-control"
                                                th:field="*{consolidados[__${itemStat.index}__].nivelAvance}">
@@ -95,7 +90,7 @@
                                 </tbody>
                             </table>
 
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+<!--                            <button type="submit" class="btn btn-primary">Registrar</button>-->
                             <a th:href="@{'/consolidados/formulario/'+ ${ficha.id}(format=pdf)}" target="_blank" type="button"
                                class="btn btn-danger">Ficha PDF</a>
                         </form>

@@ -31,6 +31,7 @@ public class InstitucionController {
     @RequestMapping("/instituciones")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/instituciones");
         model.addAttribute("titulo", "Lista de Instituciones");
         model.addAttribute("instituciones", service.listar());
 

@@ -11,6 +11,7 @@ public class ConfiguracionController {
     @RequestMapping("/config")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/config");
         model.addAttribute("titulo", "Evaluaciones realizadas");
 //        model.addAttribute("fichas", service.listar());
 

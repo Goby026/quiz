@@ -92,7 +92,7 @@
                         Panel inicio
                     </a>
                     <div class="sb-sidenav-menu-heading">Interfaces</div>
-                    <a class="nav-link collapsed"
+                    <a class="nav-link"
                        href="#"
                        data-bs-toggle="collapse"
                        data-bs-target="#collapseLayouts"
@@ -102,12 +102,12 @@
                         Evaluación
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse"
+                    <div class="collapse show"
                          id="collapseLayouts"
                          aria-labelledby="headingOne"
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link"
+                            <a th:class="${#strings.equals(activeLink, '/fichas')} ? 'nav-link active' : 'nav-link'"
                                th:href="@{/fichas}">Fichas</a>
                             <!--                            <a class="nav-link"-->
                             <!--                               th:href="@{/actividades}">Actividades / Sesiones</a>-->
@@ -115,7 +115,7 @@
                             <!--                               th:href="@{/consolidados}">Consolidados</a>-->
                         </nav>
                     </div>
-                    <a class="nav-link collapsed"
+                    <a class="nav-link"
                        href="#"
                        data-bs-toggle="collapse"
                        data-bs-target="#collapsePages"
@@ -125,13 +125,13 @@
                         Páginas
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse"
+                    <div class="collapse show"
                          id="collapsePages"
                          aria-labelledby="headingTwo"
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion"
                              id="sidenavAccordionPages">
-                            <a class="nav-link collapsed"
+                            <a class="nav-link"
                                href="#"
                                data-bs-toggle="collapse"
                                data-bs-target="#pagesCollapseAuth"
@@ -140,29 +140,29 @@
                                 Gestión
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse"
+                            <div class="collapse show"
                                  id="pagesCollapseAuth"
                                  aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/areas')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/areas}">Áreas</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/cargos')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/cargos}">Cargos</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/docentes')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/docentes}">Docentes</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/instituciones')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/instituciones}">Instituciones</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/items')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/items}">Items</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/categorias')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/categorias}">Categorias</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/canales')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/canales}">Canales de comunicación</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/medios')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/medios}"
                                        href="password.html">Medios / Recursos</a>
-                                    <a class="nav-link"
+                                    <a th:class="${#strings.equals(activeLink, '/indicadores')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/indicadores}"
                                        href="password.html">Indicadores</a>
                                 </nav>
@@ -193,7 +193,8 @@
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Conectado como:</div>
-                User-test
+<!--                <label th:text="${principal}"></label>-->
+                <label th:text="${session.username}"></label>
             </div>
         </nav>
     </div>

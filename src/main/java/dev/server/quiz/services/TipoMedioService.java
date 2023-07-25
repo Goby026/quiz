@@ -1,6 +1,7 @@
 package dev.server.quiz.services;
 
 import dev.server.quiz.entities.TipoMedio;
+import dev.server.quiz.repositories.TipoMedioRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -27,6 +27,7 @@ public class CanalController {
     @RequestMapping("/canales")
     public String listar(Model model) throws Exception {
 
+        model.addAttribute("activeLink", "/canales");
         model.addAttribute("titulo", TITULO);
         model.addAttribute("canales", service.listar());
 

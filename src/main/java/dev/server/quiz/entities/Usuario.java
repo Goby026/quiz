@@ -25,13 +25,20 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
+
     private String password;
     private String nombres;
     private String apellidos;
     private String telefono;
+
+    @Column(unique = true)
     private String dni;
+
+    @Column(unique = true)
     private String email;
+
     private Boolean enabled;
 
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)

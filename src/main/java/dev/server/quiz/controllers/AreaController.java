@@ -23,6 +23,7 @@ public class AreaController {
 
     @RequestMapping("/areas")
     public String listar(Model model) throws Exception {
+        model.addAttribute("activeLink", "/areas");
         model.addAttribute("titulo", "Lista de areas / cursos");
         model.addAttribute("areas", this.service.listar());
         return "pages/areas/index";
