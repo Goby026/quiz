@@ -98,11 +98,14 @@
                             <div class="mb-3">
                                 <label for="txtTelefono"
                                        class="form-label">Número telefónico</label>
-                                <input type="text"
+                                <input type="number"
                                        class="form-control"
                                        id="txtTelefono"
+                                       min="0"
+                                       max="999999999"
+                                       maxlength="9"
                                        th:field="*{telefono}"
-                                       th:errorclass="'form-control'"/>
+                                       th:errorclass="'form-control'" />
                                 <small class="form-text text-danger"
                                        th:if="${#fields.hasErrors('telefono')}"
                                        th:errors="*{telefono}"></small>
@@ -139,6 +142,17 @@
         <footer th:replace="~{layout/layout :: footer}"></footer>
     </div>
 </div>
+<script>
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+       input.oninput = ()=> {
+              if (input.value.length > input.maxLength) {
+                     input.value = input.value.slice(0, input.maxLength);
+              }
+       }
+    });
+    
+</script>
 </body>
 
 </html>

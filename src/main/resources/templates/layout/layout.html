@@ -145,14 +145,14 @@
                                  aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a th:class="${#strings.equals(activeLink, '/instituciones')} ? 'nav-link active' : 'nav-link'"
+                                       th:href="@{/instituciones}">Instituciones</a>
                                     <a th:class="${#strings.equals(activeLink, '/areas')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/areas}">Áreas</a>
                                     <a th:class="${#strings.equals(activeLink, '/cargos')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/cargos}">Cargos</a>
                                     <a th:class="${#strings.equals(activeLink, '/docentes')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/docentes}">Docentes</a>
-                                    <a th:class="${#strings.equals(activeLink, '/instituciones')} ? 'nav-link active' : 'nav-link'"
-                                       th:href="@{/instituciones}">Instituciones</a>
                                     <a th:class="${#strings.equals(activeLink, '/items')} ? 'nav-link active' : 'nav-link'"
                                        th:href="@{/items}">Items</a>
                                     <a th:class="${#strings.equals(activeLink, '/categorias')} ? 'nav-link active' : 'nav-link'"
